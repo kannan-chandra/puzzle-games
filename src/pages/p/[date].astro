@@ -25,62 +25,184 @@ const puzzleMeta = await getPuzzleMeta(date);
 ---
 
 <Layout>
-	<h1>{puzzleMeta?.title}</h1>
-	<p>Date: <strong>{date}</strong></p>
+  <div class="puzzle-header text-center">
+    <h1>{puzzleMeta?.title}</h1>
+    <p class="puzzle-date">Date: <strong>{date}</strong></p>
+  </div>
 
-	<div id="puzzle-container">
-		<p>Loading puzzle...</p>
-	</div>
+  <section class="puzzle-page" aria-live="polite">
+    <div id="puzzle-content" class="puzzle-content">
+      <p>Loading puzzle...</p>
+    </div>
 
-	<script define:vars={{ date, base }}>
-		// Client-side gating and data fetching
-		
-		// Inline timezone helper
-		function getUnlockedDateET(now) {
-			const formatter = new Intl.DateTimeFormat('en-US', {
-				timeZone: 'America/New_York',
-				year: 'numeric',
-				month: '2-digit',
-				day: '2-digit',
-			});
+    <div id="qa" class="qa">
+      <!-- Filled client-side -->
+    </div>
+  </section>
 
-			const parts = formatter.formatToParts(now);
-			const year = parts.find((p) => p.type === 'year')?.value;
-			const month = parts.find((p) => p.type === 'month')?.value;
-			const day = parts.find((p) => p.type === 'day')?.value;
+  <script define:vars={{ date, base }}>
+    // Inline timezone helper
+    function getUnlockedDateET(now) {
+      const formatter = new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/New_York",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
 
-			return `${year}-${month}-${day}`;
-		}
+      const parts = formatter.formatToParts(now);
+      const year = parts.find((p) => p.type === "year")?.value;
+      const month = parts.find((p) => p.type === "month")?.value;
+      const day = parts.find((p) => p.type === "day")?.value;
 
-		async function loadPuzzle() {
-			const unlockedDate = getUnlockedDateET(new Date());
+      return `${year}-${month}-${day}`;
+    }
 
-			// Check if the requested date is in the future
-			if (date > unlockedDate) {
-				window.location.href = `${base}`;
-				return;
-			}
+    function clear(el) {
+      while (el.firstChild) el.removeChild(el.firstChild);
+    }
 
-			// Fetch the puzzle JSON
-			try {
-				const response = await fetch(`${base}puzzles/${date}.json`);
-				if (!response.ok) {
-					throw new Error('Puzzle not found');
-				}
-				const data = await response.json();
-				const container = document.getElementById('puzzle-container');
-				if (container) {
-					container.innerHTML = `<pre>${data.puzzle}</pre>`;
-				}
-			} catch (error) {
-				const container = document.getElementById('puzzle-container');
-				if (container) {
-					container.innerHTML = '<p>Error loading puzzle.</p>';
-				}
-				console.error('Failed to load puzzle:', error);
-			}
-		}
+    function renderPuzzleText(container, puzzleText) {
+      clear(container);
 
-		loadPuzzle();
-	</script>
+      // Split into paragraphs on blank lines
+      const paragraphs = String(puzzleText || "").split(/\n\s*\n/g);
+
+      for (const para of paragraphs) {
+        const p = document.createElement("p");
+
+        // Preserve single newlines inside paragraph as <br>
+        const lines = para.split("\n");
+        lines.forEach((line, idx) => {
+          p.appendChild(document.createTextNode(line));
+          if (idx < lines.length - 1) p.appendChild(document.createElement("br"));
+        });
+
+        container.appendChild(p);
+      }
+    }
+
+    function renderQA(container, data) {
+      clear(container);
+
+      const card = document.createElement("section");
+      card.className = "qa-card";
+
+      const q = document.createElement("h2");
+      q.className = "qa-question";
+      q.textContent = data.question || "Question";
+
+      const optionsWrap = document.createElement("div");
+      optionsWrap.className = "qa-options";
+      optionsWrap.setAttribute("role", "group");
+      optionsWrap.setAttribute("aria-label", "Answer options");
+
+      const feedback = document.createElement("div");
+      feedback.className = "qa-feedback";
+      feedback.setAttribute("aria-live", "polite");
+
+      const explanation = document.createElement("div");
+      explanation.className = "qa-explanation";
+      explanation.style.display = "none";
+
+      let answered = false;
+      const correctIndex = Number(data.answer) - 1;
+
+      const buttons = (data.options || []).map((optText, idx) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "qa-option";
+        btn.textContent = String(optText);
+
+        btn.addEventListener("click", () => {
+          if (answered) return;
+          answered = true;
+
+          const isCorrect = idx === correctIndex;
+
+          // Lock buttons and apply states
+          buttons.forEach((b, j) => {
+            b.disabled = true;
+            b.classList.add("is-locked");
+
+            if (j === correctIndex) b.classList.add("is-correct");
+
+            if (j === idx) b.classList.add("is-selected");
+            if (j === idx && !isCorrect) b.classList.add("is-wrong");
+          });
+
+          // Feedback text
+          feedback.textContent = isCorrect ? "Correct!" : "Not quite.";
+
+          // Explanation (optional)
+          if (data.explanation && String(data.explanation).trim().length > 0) {
+            explanation.style.display = "";
+            clear(explanation);
+
+            const h = document.createElement("h3");
+            h.textContent = "Explanation";
+            explanation.appendChild(h);
+
+            const body = document.createElement("div");
+            body.className = "qa-explanation-body";
+
+            // Render explanation as paragraphs with line breaks preserved
+            const parts = String(data.explanation).split(/\n\s*\n/g);
+            for (const part of parts) {
+              const p = document.createElement("p");
+              const lines = part.split("\n");
+              lines.forEach((line, k) => {
+                p.appendChild(document.createTextNode(line));
+                if (k < lines.length - 1) p.appendChild(document.createElement("br"));
+              });
+              body.appendChild(p);
+            }
+            explanation.appendChild(body);
+          }
+        });
+
+        return btn;
+      });
+
+      optionsWrap.append(...buttons);
+
+      card.appendChild(q);
+      card.appendChild(optionsWrap);
+      card.appendChild(feedback);
+      card.appendChild(explanation);
+
+      container.appendChild(card);
+    }
+
+    async function loadPuzzle() {
+      const unlockedDate = getUnlockedDateET(new Date());
+
+      // Gate future puzzles
+      if (date > unlockedDate) {
+        window.location.href = `${base}`;
+        return;
+      }
+
+      const puzzleContent = document.getElementById("puzzle-content");
+      const qa = document.getElementById("qa");
+
+      try {
+        const response = await fetch(`${base}puzzles/${date}.json`, { cache: "no-store" });
+        if (!response.ok) throw new Error("Puzzle not found");
+
+        const data = await response.json();
+
+        if (puzzleContent) renderPuzzleText(puzzleContent, data.puzzle);
+        if (qa) renderQA(qa, data);
+      } catch (error) {
+        if (puzzleContent) {
+          puzzleContent.innerHTML = "<p>Error loading puzzle.</p>";
+        }
+        if (qa) clear(qa);
+        console.error("Failed to load puzzle:", error);
+      }
+    }
+
+    loadPuzzle();
+  </script>
 </Layout>
