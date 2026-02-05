@@ -5,6 +5,7 @@ const SRC_DIR = path.resolve("src/content/puzzles");
 const OUT_DIR = path.resolve("public/puzzles");
 
 const REQUIRED_SECTIONS = ["Title", "Puzzle", "Question", "Options", "Answer"];
+const OPTIONAL_SECTIONS = ["Explanation"];
 
 function parsePuzzleFile(text, filename) {
   const src = text.replace(/\r\n/g, "\n").trim() + "\n";
@@ -13,7 +14,11 @@ function parsePuzzleFile(text, filename) {
   const headers = [];
   let m;
   while ((m = headerRe.exec(src)) !== null) {
-    headers.push({ name: m[1], start: m.index, contentStart: headerRe.lastIndex });
+    headers.push({
+      name: m[1],
+      start: m.index,
+      contentStart: headerRe.lastIndex,
+    });
   }
 
   if (headers.length === 0) {
@@ -32,21 +37,26 @@ function parsePuzzleFile(text, filename) {
     sections[h.name] = content;
   }
 
+  // Validate required sections
   for (const name of REQUIRED_SECTIONS) {
     if (!sections[name] || sections[name].trim() === "") {
       throw new Error(`${filename}: Missing or empty section "${name}".`);
     }
   }
 
+  // Validate no unexpected sections
   for (const name of Object.keys(sections)) {
-    if (!REQUIRED_SECTIONS.includes(name)) {
+    if (
+      !REQUIRED_SECTIONS.includes(name) &&
+      !OPTIONAL_SECTIONS.includes(name)
+    ) {
       throw new Error(`${filename}: Unexpected section "${name}".`);
     }
   }
 
   const options = sections["Options"]
     .split("\n")
-    .map(s => s.trim())
+    .map((s) => s.trim())
     .filter(Boolean);
 
   if (options.length < 2) {
@@ -60,12 +70,19 @@ function parsePuzzleFile(text, filename) {
     );
   }
 
+  const explanation = sections["Explanation"]
+    ? sections["Explanation"]
+        .replace(/\n{3,}/g, "\n\n") // normalize excessive spacing
+        .trim()
+    : undefined;
+
   return {
     title: sections["Title"].trim(),
     puzzle: sections["Puzzle"].trim(),
     question: sections["Question"].trim(),
     options,
-    answer
+    answer,
+    ...(explanation ? { explanation } : {}),
   };
 }
 
@@ -80,7 +97,10 @@ async function ensureDir(dir) {
 async function main() {
   await ensureDir(OUT_DIR);
 
-  const srcFiles = (await fs.readdir(SRC_DIR)).filter(f => f.endsWith(".txt"));
+  const srcFiles = (await fs.readdir(SRC_DIR)).filter((f) =>
+    f.endsWith(".txt")
+  );
+
   if (srcFiles.length === 0) {
     console.log("No puzzle source files found.");
     return;
@@ -105,7 +125,8 @@ async function main() {
       puzzle: parsed.puzzle,
       question: parsed.question,
       options: parsed.options,
-      answer: parsed.answer
+      answer: parsed.answer,
+      ...(parsed.explanation ? { explanation: parsed.explanation } : {}),
     };
 
     const outFile = `${date}.json`;
@@ -120,15 +141,16 @@ async function main() {
 
   manifest.sort((a, b) => compareDates(a.date, b.date));
 
-  const manifestFile = "manifest.json";
-  const manifestPath = path.join(OUT_DIR, manifestFile);
-  await fs.writeFile(manifestPath, JSON.stringify(manifest, null, 2) + "\n");
-  writtenFiles.add(manifestFile);
-  console.log(`Wrote ${manifestFile}`);
+  const manifestPath = path.join(OUT_DIR, "manifest.json");
+  await fs.writeFile(
+    manifestPath,
+    JSON.stringify(manifest, null, 2) + "\n"
+  );
+  writtenFiles.add("manifest.json");
+  console.log("Wrote manifest.json");
 
-  // ---- CLEANUP STALE FILES ----
+  // Cleanup stale files
   const existingOutFiles = await fs.readdir(OUT_DIR);
-
   for (const file of existingOutFiles) {
     if (file.endsWith(".json") && !writtenFiles.has(file)) {
       await fs.unlink(path.join(OUT_DIR, file));
@@ -137,7 +159,7 @@ async function main() {
   }
 }
 
-main().catch(err => {
+main().catch((err) => {
   console.error(err.stack || String(err));
   process.exit(1);
 });

@@ -70,7 +70,7 @@ const puzzleMeta = await getPuzzleMeta(date);
 				const data = await response.json();
 				const container = document.getElementById('puzzle-container');
 				if (container) {
-					container.innerHTML = `<p>${data.puzzle}</p>`;
+					container.innerHTML = `<pre>${data.puzzle}</pre>`;
 				}
 			} catch (error) {
 				const container = document.getElementById('puzzle-container');
