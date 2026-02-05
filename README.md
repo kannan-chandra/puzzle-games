@@ -1,43 +1,211 @@
-# Astro Starter Kit: Minimal
+# Puzzle Games
 
-```sh
-npm create astro@latest -- --template minimal
+A static daily logic puzzle site built with **Astro** and deployed to **GitHub Pages**.
+
+* One logic puzzle per day (text-based for now)
+* Simple UI: Today’s puzzle + archive
+* Puzzles are authored as plain text files and compiled into JSON at build time
+* No backend required
+
+Live URL (production):
+
+```
+https://kannan-chandra.github.io/puzzle-games/
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+---
 
-## 🚀 Project Structure
+## Local Development
 
-Inside of your Astro project, you'll see the following folders and files:
+### Prerequisites
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+* **Node.js 18+** (Node 20 recommended)
+* npm
+
+### Install dependencies
+
+```bash
+npm install
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### Run the dev server
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```bash
+npm run dev
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+Local site:
 
-## 🧞 Commands
+```
+http://localhost:4321/puzzle-games/
+```
 
-All commands are run from the root of the project, from a terminal:
+> Note: both `/puzzle-games` and `/puzzle-games/` are supported in dev via a redirect.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+---
 
-## 👀 Want to learn more?
+## Project Structure (important parts)
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+```
+src/
+  components/
+    Layout.astro
+  content/
+    puzzles/
+      2026-02-01.txt        ← puzzle source files (authoring format)
+  lib/
+    puzzles.ts              ← loads generated manifest
+    time.ts                 ← ET date logic
+  pages/
+    index.astro             ← redirects to latest available puzzle
+    archive.astro
+    p/[date].astro
+public/
+  puzzles/
+    2026-02-01.json         ← generated (do not edit by hand)
+    manifest.json           ← generated (source of truth)
+scripts/
+  gen-puzzles.mjs           ← converts .txt → JSON + manifest
+```
+
+---
+
+## Adding Puzzles (UPDATED)
+
+> **Do not edit files in `public/puzzles/` directly.**
+> They are generated automatically.
+
+### 1) Create a new puzzle text file
+
+Add a file under:
+
+```
+src/content/puzzles/YYYY-MM-DD.txt
+```
+
+Example: `src/content/puzzles/2026-02-05.txt`
+
+### 2) Use the required puzzle format
+
+Each puzzle file must contain **exactly these sections**, in any order, using this delimiter format:
+
+```
+Title
+---
+Title of the puzzle
+
+Puzzle
+---
+Here is the puzzle text.
+
+Question
+---
+What is the correct answer?
+
+Options
+---
+Option A
+Option B
+Option C
+
+Answer
+---
+2
+```
+
+Rules:
+
+* Section names are **case-sensitive**
+* All five sections are **required**
+* `Options` = one option per line
+* `Answer` is a **1-based index** into the options list
+* Script will throw an error if:
+
+  * a section is missing
+  * answer is out of range
+  * filename is not `YYYY-MM-DD.txt`
+
+---
+
+### 3) Generate puzzle JSON + manifest
+
+Run:
+
+```bash
+npm run gen:puzzles
+```
+
+This will:
+
+* Convert each `.txt` puzzle into `public/puzzles/YYYY-MM-DD.json`
+* Generate `public/puzzles/manifest.json`
+* Delete any stale JSON files for puzzles that no longer exist
+
+You should **commit the generated `public/puzzles/` files**.
+
+---
+
+### 4) Run the site
+
+```bash
+npm run dev
+```
+
+* `/` redirects to the **latest available puzzle ≤ today (ET)**
+* Archive lists **only puzzles that actually exist**
+* Missing days are allowed (no requirement for daily continuity)
+
+---
+
+## How “Today” Works
+
+* The site computes **today’s date in America/New_York**
+* It looks at the generated `manifest.json`
+* It redirects to the **most recent puzzle that is not in the future**
+* If no puzzles exist yet, `/` shows a friendly message
+
+No daily rebuild is required unless you add new puzzles.
+
+---
+
+## Build & Preview (Production Mode)
+
+```bash
+npm run build
+npm run preview
+```
+
+Preview URL:
+
+```
+http://localhost:4321/puzzle-games/
+```
+
+---
+
+## Deployment (GitHub Pages)
+
+* Builds happen in **GitHub Actions**
+* Output is static
+* Hosted at:
+
+  ```
+  https://kannan-chandra.github.io/puzzle-games/
+  ```
+
+Astro config uses:
+
+```js
+site: "https://kannan-chandra.github.io"
+base: "/puzzle-games/"
+```
+
+---
+
+## Notes / Design Decisions
+
+* `public/puzzles/manifest.json` is the **single source of truth**
+* Routes are generated only for existing puzzles
+* Future puzzle dates cannot be accessed unless a puzzle file exists
+* Obfuscation/security is intentionally minimal (static site)
+

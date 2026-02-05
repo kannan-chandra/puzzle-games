@@ -1,0 +1,37 @@
+---
+import { getAllPuzzleMeta } from '../lib/puzzles';
+import { getUnlockedDateET, compareDates } from '../lib/time';
+import Layout from '../components/Layout.astro';
+
+const unlockedDate = getUnlockedDateET(new Date());
+const allPuzzles = await getAllPuzzleMeta();
+
+// Filter puzzles to only show those <= unlockedDate
+const availablePuzzles = allPuzzles.filter(
+	(puzzle) => compareDates(puzzle.date, unlockedDate) <= 0
+);
+
+// Sort in reverse chronological order
+availablePuzzles.sort((a, b) => compareDates(b.date, a.date));
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Layout>
+	<h1>Archive</h1>
+	<p>Browse all available puzzles.</p>
+
+	{availablePuzzles.length === 0 ? (
+		<p>No puzzles available yet.</p>
+	) : (
+		<ul style="list-style: none; padding: 0;">
+			{availablePuzzles.map((puzzle) => (
+				<li style="margin-bottom: 0.5rem;">
+					<a href={`${base}p/${puzzle.date}/`}>
+						{puzzle.date} - {puzzle.title}
+					</a>
+				</li>
+			))}
+		</ul>
+	)}
+</Layout>

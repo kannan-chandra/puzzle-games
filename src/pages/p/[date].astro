@@ -1,0 +1,86 @@
+---
+import { getAllPuzzleMeta, hasPuzzleDate, getPuzzleMeta } from '../../lib/puzzles';
+import Layout from '../../components/Layout.astro';
+
+export async function getStaticPaths() {
+  const allPuzzles = await getAllPuzzleMeta();
+  return allPuzzles.map((puzzle) => ({
+    params: { date: puzzle.date },
+  }));
+}
+
+const { date } = Astro.params;
+const base = import.meta.env.BASE_URL;
+
+if (!date) {
+  return Astro.redirect(base);
+}
+
+const puzzleExists = await hasPuzzleDate(date);
+if (!puzzleExists) {
+  return Astro.redirect(base);
+}
+
+const puzzleMeta = await getPuzzleMeta(date);
+---
+
+<Layout>
+	<h1>{puzzleMeta?.title}</h1>
+	<p>Date: <strong>{date}</strong></p>
+
+	<div id="puzzle-container">
+		<p>Loading puzzle...</p>
+	</div>
+
+	<script define:vars={{ date, base }}>
+		// Client-side gating and data fetching
+		
+		// Inline timezone helper
+		function getUnlockedDateET(now) {
+			const formatter = new Intl.DateTimeFormat('en-US', {
+				timeZone: 'America/New_York',
+				year: 'numeric',
+				month: '2-digit',
+				day: '2-digit',
+			});
+
+			const parts = formatter.formatToParts(now);
+			const year = parts.find((p) => p.type === 'year')?.value;
+			const month = parts.find((p) => p.type === 'month')?.value;
+			const day = parts.find((p) => p.type === 'day')?.value;
+
+			return `${year}-${month}-${day}`;
+		}
+
+		async function loadPuzzle() {
+			const unlockedDate = getUnlockedDateET(new Date());
+
+			// Check if the requested date is in the future
+			if (date > unlockedDate) {
+				window.location.href = `${base}`;
+				return;
+			}
+
+			// Fetch the puzzle JSON
+			try {
+				const response = await fetch(`${base}puzzles/${date}.json`);
+				if (!response.ok) {
+					throw new Error('Puzzle not found');
+				}
+				const data = await response.json();
+				const container = document.getElementById('puzzle-container');
+				if (container) {
+					container.innerHTML = `<p>${data.puzzle}</p>`;
+				}
+			} catch (error) {
+				const container = document.getElementById('puzzle-container');
+				if (container) {
+					container.innerHTML = '<p>Error loading puzzle.</p>';
+				}
+				console.error('Failed to load puzzle:', error);
+			}
+		}
+
+		loadPuzzle();
+	</script>
+</Layout>

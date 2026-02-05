@@ -1,0 +1,12 @@
+{
+  "date": "2026-02-01",
+  "title": "Title of the puzzle",
+  "puzzle": "Here's the puzzle text for today.",
+  "question": "Who was the winner?",
+  "options": [
+    "Albert",
+    "Bob",
+    "Charlie"
+  ],
+  "answer": 1
+}

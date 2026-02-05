@@ -1,0 +1,71 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Puzzle Games</title>
+		<link rel="stylesheet" href={`${base}styles/global.css`} />
+	</head>
+	<body>
+		<header>
+			<nav>
+				<a href={`${base}`}>Home</a>
+				<a href={`${base}archive`}>Archive</a>
+			</nav>
+		</header>
+		<main>
+			<slot />
+		</main>
+		<footer>
+			<p>&copy; 2026 Puzzle Games. All rights reserved.</p>
+		</footer>
+	</body>
+</html>
+
+<style>
+	header {
+		background-color: #333;
+		color: white;
+		padding: 1rem;
+		border-bottom: 2px solid #555;
+	}
+
+	nav {
+		display: flex;
+		gap: 1rem;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	nav a {
+		color: white;
+		text-decoration: none;
+		padding: 0.5rem 1rem;
+		border-radius: 4px;
+		transition: background-color 0.2s;
+	}
+
+	nav a:hover {
+		background-color: #555;
+	}
+
+	main {
+		max-width: 1200px;
+		margin: 2rem auto;
+		padding: 0 1rem;
+		min-height: calc(100vh - 200px);
+	}
+
+	footer {
+		background-color: #f0f0f0;
+		text-align: center;
+		padding: 1rem;
+		margin-top: 2rem;
+		border-top: 1px solid #ddd;
+		color: #666;
+	}
+</style>

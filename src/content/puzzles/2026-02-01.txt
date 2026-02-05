@@ -1,0 +1,21 @@
+Title
+---
+Title of the puzzle
+
+Puzzle
+---
+Here's the puzzle text for today.
+
+Question
+---
+Who was the winner?
+
+Options
+---
+Albert
+Bob
+Charlie
+
+Answer
+---
+1
