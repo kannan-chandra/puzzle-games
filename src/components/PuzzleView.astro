@@ -1,6 +1,5 @@
 ---
 import { getPuzzleMeta } from "../lib/puzzles";
-import puzzleClientUrl from "../scripts/puzzleClient.ts?url";
 
 type Props = {
   date: string;
@@ -37,11 +36,166 @@ const title = meta?.title?.trim() || `Puzzle for ${formatPuzzleDate(date)}`;
 
   <div id={`qa-${date}`} class="qa"></div>
 
-  <script
-    type="module"
-    src={puzzleClientUrl}
-    data-puzzle-client="1"
-    data-date={date}
-    data-base={base}
-  ></script>
+  <script define:vars={{ date, base }}>
+    // Inline puzzle client logic (compiled from TypeScript)
+    
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function applyInlineFormatting(text) {
+      // **bold**
+      text = text.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+
+      // *italic* (avoid ** being treated as italics)
+      text = text.replace(/(^|[^*])\*(?!\*)(.+?)\*(?!\*)/g, "$1<em>$2</em>");
+
+      return text;
+    }
+
+    function renderRichTextLiteHtml(raw) {
+      const s = String(raw ?? "");
+      if (!s.trim()) return "";
+
+      const normalized = s.replace(/\r\n/g, "\n");
+
+      // Split into paragraphs on blank lines
+      const paragraphs = normalized.split(/\n\s*\n/);
+
+      return paragraphs
+        .map((para) => {
+          const escaped = escapeHtml(para);
+          const formatted = applyInlineFormatting(escaped);
+          const withLineBreaks = formatted.replace(/\n/g, "<br />");
+          return `<p>${withLineBreaks}</p>`;
+        })
+        .join("\n");
+    }
+
+    function getUnlockedDateET(now) {
+      const formatter = new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/New_York",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
+
+      const parts = formatter.formatToParts(now);
+      const year = parts.find((p) => p.type === "year")?.value;
+      const month = parts.find((p) => p.type === "month")?.value;
+      const day = parts.find((p) => p.type === "day")?.value;
+
+      return `${year}-${month}-${day}`;
+    }
+
+    function clear(el) {
+      while (el.firstChild) el.removeChild(el.firstChild);
+    }
+
+    function renderQA(container, data) {
+      clear(container);
+
+      const card = document.createElement("section");
+      card.className = "qa-card";
+
+      const q = document.createElement("h2");
+      q.className = "qa-question";
+      q.textContent = data.question || "Question";
+
+      const optionsWrap = document.createElement("div");
+      optionsWrap.className = "qa-options";
+      optionsWrap.setAttribute("role", "group");
+      optionsWrap.setAttribute("aria-label", "Answer options");
+
+      const feedback = document.createElement("div");
+      feedback.className = "qa-feedback";
+      feedback.setAttribute("aria-live", "polite");
+
+      const explanation = document.createElement("div");
+      explanation.className = "qa-explanation";
+      explanation.style.display = "none";
+
+      let answered = false;
+      const correctIndex = Number(data.answer) - 1;
+
+      const buttons = (data.options || []).map((optText, idx) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "qa-option";
+        btn.textContent = String(optText);
+
+        btn.addEventListener("click", () => {
+          if (answered) return;
+          answered = true;
+
+          const isCorrect = idx === correctIndex;
+
+          buttons.forEach((b, j) => {
+            b.disabled = true;
+            b.classList.add("is-locked");
+            if (j === correctIndex) b.classList.add("is-correct");
+            if (j === idx) b.classList.add("is-selected");
+            if (j === idx && !isCorrect) b.classList.add("is-wrong");
+          });
+
+          feedback.textContent = isCorrect ? "Correct!" : "Not quite.";
+
+          if (data.explanation && String(data.explanation).trim().length > 0) {
+            explanation.style.display = "";
+
+            clear(explanation);
+            const h = document.createElement("h3");
+            h.textContent = "Explanation";
+            explanation.appendChild(h);
+
+            const body = document.createElement("div");
+            body.className = "qa-explanation-body";
+            body.innerHTML = renderRichTextLiteHtml(data.explanation);
+            explanation.appendChild(body);
+          }
+        });
+
+        return btn;
+      });
+
+      optionsWrap.append(...buttons);
+      card.append(q, optionsWrap, feedback, explanation);
+      container.appendChild(card);
+    }
+
+    async function loadPuzzleClient(date, base) {
+      const unlockedDate = getUnlockedDateET(new Date());
+      if (date > unlockedDate) {
+        window.location.href = `${base}`;
+        return;
+      }
+
+      const puzzleEl = document.getElementById(`puzzle-content-${date}`);
+      const qaEl = document.getElementById(`qa-${date}`);
+      if (!puzzleEl || !qaEl) return;
+
+      try {
+        const res = await fetch(`${base}puzzles/${date}.json`, {
+          cache: "no-store",
+        });
+        if (!res.ok) throw new Error("Puzzle not found");
+        const data = await res.json();
+
+        puzzleEl.innerHTML = renderRichTextLiteHtml(data.puzzle);
+        renderQA(qaEl, data);
+      } catch (e) {
+        puzzleEl.innerHTML = "<p>Error loading puzzle.</p>";
+        clear(qaEl);
+        console.error("Failed to load puzzle:", e);
+      }
+    }
+
+    // Execute
+    loadPuzzleClient(date, base);
+  </script>
 </section>
