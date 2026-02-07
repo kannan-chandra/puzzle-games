@@ -1,0 +1,55 @@
+Title
+---
+A Wedding without a Band
+
+Puzzle
+---
+As the wedding ceremony approaches its conclusion, a wedding planner's mind races...
+
+* Don't panic. You can't remember which envelope the rings are in. Okay, maybe panic a little bit. *
+
+* Think. There are three envelopes: a red one, a blue one, and a clear one. *
+
+* One of the envelopes has the vows, and another has the seating chart. The third must be the one with the ring. *
+
+* The red envelope was already gone when I brought the rings to the table, so that's not the one. *
+
+* Who's been by the table since then? Just the Best Man. Let me text the Maid of Honor and see if she has it. *
+
+* No, wait. There was also that little Flower Girl who came by... showing off her really old watch, her new  doll, and asking to borrow my brooch. She said something about trying to complete her set... *
+
+* The Maid of Honor's replied. She saw an envelope among her things but doesn't know what's inside it. Damn. *
+
+* Oh no, I see the Best Man handing over the vows to the couple.  *
+
+* Two short vows, before they call for the rings. Come one, think. THINK. *
+
+* Wait. *
+
+* I got it. *
+
+* I know who has the rings. *
+
+*  *
+Question
+---
+Who has the ring?
+
+Options
+---
+Best Man
+Maid of Honor
+Flower Girl
+
+Answer
+---
+3
+
+Explanation
+---
+The Maid of Honor couldn't tell what was in her envelope, so she does not have the clear envelope.
+The Flower Girl is trying to finish the wedding couplet, "Something old, something new, something borrowed, and something blue". She must have taken the blue envelope.
+
+The Best Man has the Clear Envelope with the Vows.
+The Maid of Honor has the Red Envelope with the Seating Chart.
+The Flower Girl has the Blue Envelope with the Ring. 
