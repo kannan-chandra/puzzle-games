@@ -1,0 +1,41 @@
+Title
+---
+A Wizard and his Staff
+
+Puzzle
+---
+=== CLUES (themed) ===
+2. Peel of Aurantium does not cause Rapturous Repose.
+3. Brass Pipe does not contain Papaver seed.
+4. Whiskey Glass contains Peel of Aurantium.
+5. Moonleaf causes Spiritual Somnolence.
+
+
+The Inimitable Wizard? titles
+
+
+
+last line is wizard puts Peel into Whiskey Glass. (clue 4)
+
+Question
+---
+What did the wizard brew?
+
+Options
+---
+Spiritual Somnolence
+Ethereal Elevation
+Rapturous Repose
+
+Answer
+---
+2
+
+Explanation
+---
+
+Spiritual Somnolence is conjured with Moonleaf burnt in a Brass Pipe
+Rapturous Repose is created with Papaver seed ground in a Stone Bowl. 
+Ethereal Elevation is brewed in a Whiskey Glass with Peel of Aurantium, also known as an orange peel.
+
+The Potion of Ethereal Elevation is also known as an Old Fashioned. 

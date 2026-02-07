@@ -14,7 +14,7 @@ As the wedding ceremony approaches its conclusion, a wedding planner's mind race
 
 * The red envelope was already gone when I brought the rings to the table, so that's not the one. *
 
-* Who's been by the table since then? Just the Best Man. Let me text the Maid of Honor and see if she has it. *
+* Who's been by the table since then? Just the Best Man. Let me text the Maid of Honor and see if she has an envelope. *
 
 * No, wait. There was also that little Flower Girl who came by... showing off her really old watch, her new  doll, and asking to borrow my brooch. She said something about trying to complete her set... *
 
@@ -48,6 +48,7 @@ Answer
 Explanation
 ---
 The Maid of Honor couldn't tell what was in her envelope, so she does not have the clear envelope.
+
 The Flower Girl is trying to finish the wedding couplet, "Something old, something new, something borrowed, and something blue". She must have taken the blue envelope.
 
 The Best Man has the Clear Envelope with the Vows.
