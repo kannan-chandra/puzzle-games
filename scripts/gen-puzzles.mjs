@@ -3,9 +3,27 @@ import path from "node:path";
 
 const SRC_DIR = path.resolve("src/content/puzzles");
 const OUT_DIR = path.resolve("public/puzzles");
+const DRAFT_TOKEN = "//draft";
 
 const REQUIRED_SECTIONS = ["Title", "Puzzle", "Question", "Options", "Answer"];
 const OPTIONAL_SECTIONS = ["Explanation"];
+
+function stripDraftToken(raw) {
+  const leadingMatch = raw.match(/^\s*/);
+  const leading = leadingMatch ? leadingMatch[0].length : 0;
+  if (raw.slice(leading, leading + DRAFT_TOKEN.length) !== DRAFT_TOKEN) {
+    return { isDraft: false, body: raw };
+  }
+
+  let body = raw.slice(leading + DRAFT_TOKEN.length);
+  if (body.startsWith("\r\n")) {
+    body = body.slice(2);
+  } else if (body.startsWith("\n")) {
+    body = body.slice(1);
+  }
+
+  return { isDraft: true, body };
+}
 
 function parsePuzzleFile(text, filename) {
   const src = text.replace(/\r\n/g, "\n").trim() + "\n";
@@ -95,6 +113,7 @@ async function ensureDir(dir) {
 }
 
 async function main() {
+  const includeDrafts = process.argv.includes("--include-drafts");
   await ensureDir(OUT_DIR);
 
   const srcFiles = (await fs.readdir(SRC_DIR)).filter((f) =>
@@ -117,11 +136,19 @@ async function main() {
     }
 
     const raw = await fs.readFile(path.join(SRC_DIR, file), "utf8");
-    const parsed = parsePuzzleFile(raw, file);
+    const { isDraft, body } = stripDraftToken(raw);
+    if (isDraft && !includeDrafts) {
+      console.log(`Skipped draft ${file}`);
+      continue;
+    }
+
+    const parsed = parsePuzzleFile(body, file);
+    const displayTitle =
+      isDraft && includeDrafts ? `${parsed.title} (DRAFT)` : parsed.title;
 
     const output = {
       date,
-      title: parsed.title,
+      title: displayTitle,
       puzzle: parsed.puzzle,
       question: parsed.question,
       options: parsed.options,
@@ -136,7 +163,7 @@ async function main() {
     writtenFiles.add(outFile);
     console.log(`Wrote ${outFile}`);
 
-    manifest.push({ date, title: parsed.title });
+    manifest.push({ date, title: displayTitle });
   }
 
   manifest.sort((a, b) => compareDates(a.date, b.date));
