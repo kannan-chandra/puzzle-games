@@ -1,0 +1,21 @@
+Title
+---
+Fixture Puzzle Two
+
+Puzzle
+---
+This is the latest available fixture puzzle.
+
+Question
+---
+Choose the answer.
+
+Options
+---
+One
+Two
+Three
+
+Answer
+---
+1

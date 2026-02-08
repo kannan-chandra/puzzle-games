@@ -1,0 +1,25 @@
+Title
+---
+Fixture Puzzle One
+
+Puzzle
+---
+This is the first fixture puzzle.
+
+Question
+---
+Pick the correct answer.
+
+Options
+---
+Alpha
+Beta
+Gamma
+
+Answer
+---
+2
+
+Explanation
+---
+Beta is correct for fixture one.

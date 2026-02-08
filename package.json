@@ -6,6 +6,7 @@
     "gen:puzzles": "node scripts/gen-puzzles.mjs",
     "dev": "node scripts/gen-puzzles.mjs --include-drafts && astro dev",
     "build": "npm run gen:puzzles && astro build",
+    "test:integration": "node scripts/run-integration.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -13,6 +14,8 @@
     "astro": "^5.17.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "http-server": "^14.1.1",
     "@types/node": "^25.2.1"
   }
 }

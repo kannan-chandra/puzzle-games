@@ -1,0 +1,22 @@
+//draft
+Title
+---
+Fixture Draft Puzzle
+
+Puzzle
+---
+This draft should never appear in build output.
+
+Question
+---
+Which is draft?
+
+Options
+---
+A
+B
+C
+
+Answer
+---
+1

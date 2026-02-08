@@ -1,7 +1,9 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
-const SRC_DIR = path.resolve("src/content/puzzles");
+const SRC_DIR = path.resolve(
+  process.env.PUZZLE_SRC_DIR || "src/content/puzzles"
+);
 const OUT_DIR = path.resolve("public/puzzles");
 const DRAFT_TOKEN = "//draft";
 

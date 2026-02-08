@@ -1,0 +1,21 @@
+Title
+---
+Fixture Puzzle Three
+
+Puzzle
+---
+This is a future fixture puzzle.
+
+Question
+---
+What comes next?
+
+Options
+---
+Red
+Green
+Blue
+
+Answer
+---
+3

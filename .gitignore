@@ -1,7 +1,13 @@
 # build output
 dist/
+# generated puzzle outputs
+public/puzzles/
 # generated types
 .astro/
+# integration test temp output
+.tmp/
+test-results/
+playwright-report/
 
 # dependencies
 node_modules/
