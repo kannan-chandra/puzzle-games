@@ -5,6 +5,7 @@ A static daily logic puzzle site built with **Astro** and deployed to **GitHub P
 * One logic puzzle per day (text-based for now)
 * Simple UI: Today’s puzzle + archive
 * Puzzles are authored as plain text files and compiled into JSON at build time
+* Draft puzzles can be previewed in dev without shipping to production
 * No backend required
 
 Live URL (production):
@@ -111,12 +112,17 @@ Option C
 Answer
 ---
 2
+
+Explanation
+---
+Optional extra context shown after answering.
 ```
 
 Rules:
 
 * Section names are **case-sensitive**
 * All five sections are **required**
+* `Explanation` is **optional**
 * `Options` = one option per line
 * `Answer` is a **1-based index** into the options list
 * Script will throw an error if:
@@ -124,6 +130,11 @@ Rules:
   * a section is missing
   * answer is out of range
   * filename is not `YYYY-MM-DD.txt`
+
+Formatting:
+
+* `**bold**` and `*italic*` are supported in `Puzzle` and `Explanation`
+* Blank lines split paragraphs; single newlines become `<br />`
 
 ---
 
@@ -145,7 +156,22 @@ You should **commit the generated `public/puzzles/` files**.
 
 ---
 
-### 4) Run the site
+### 4) Draft puzzles (dev only)
+
+To mark a puzzle as a draft, add this token at the very top of the file (whitespace allowed before it):
+
+```
+//draft
+```
+
+Behavior:
+
+* `npm run dev` includes draft puzzles and appends ` (DRAFT)` to their titles
+* `npm run build` and production output **exclude** drafts entirely
+
+---
+
+### 5) Run the site
 
 ```bash
 npm run dev
@@ -208,4 +234,3 @@ base: "/puzzle-games/"
 * Routes are generated only for existing puzzles
 * Future puzzle dates cannot be accessed unless a puzzle file exists
 * Obfuscation/security is intentionally minimal (static site)
-

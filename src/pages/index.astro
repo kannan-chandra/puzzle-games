@@ -1,20 +1,8 @@
 ---
 import Layout from "../components/Layout.astro";
 import PuzzleView from "../components/PuzzleView.astro";
-import { getUnlockedDateET } from "../lib/time";
-import { getLatestAvailablePuzzleDate } from "../lib/puzzles";
-
-const unlockedDate = getUnlockedDateET(new Date());
-const latest = await getLatestAvailablePuzzleDate(unlockedDate);
 ---
 
 <Layout>
-  {latest ? (
-    <PuzzleView date={latest} />
-  ) : (
-    <>
-      <h1>Puzzle Games</h1>
-      <p>No puzzles have been published yet.</p>
-    </>
-  )}
+  <PuzzleView date="latest" />
 </Layout>

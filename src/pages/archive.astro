@@ -1,18 +1,5 @@
 ---
-import { getAllPuzzleMeta } from '../lib/puzzles';
-import { getUnlockedDateET, compareDates } from '../lib/time';
 import Layout from '../components/Layout.astro';
-
-const unlockedDate = getUnlockedDateET(new Date());
-const allPuzzles = await getAllPuzzleMeta();
-
-// Filter puzzles to only show those <= unlockedDate
-const availablePuzzles = allPuzzles.filter(
-	(puzzle) => compareDates(puzzle.date, unlockedDate) <= 0
-);
-
-// Sort in reverse chronological order
-availablePuzzles.sort((a, b) => compareDates(b.date, a.date));
 
 const base = import.meta.env.BASE_URL;
 ---
@@ -21,17 +8,84 @@ const base = import.meta.env.BASE_URL;
 	<h1>Archive</h1>
 	<p>Browse all available puzzles.</p>
 
-	{availablePuzzles.length === 0 ? (
-		<p>No puzzles available yet.</p>
-	) : (
-		<ul style="list-style: none; padding: 0;">
-			{availablePuzzles.map((puzzle) => (
-				<li style="margin-bottom: 0.5rem;">
-					<a href={`${base}p/${puzzle.date}/`}>
-						{puzzle.date} - {puzzle.title}
-					</a>
-				</li>
-			))}
-		</ul>
-	)}
+	<div id="archive-root">
+		<p>Loading puzzles...</p>
+	</div>
+
+	<noscript>
+		<p>JavaScript is required to load the archive.</p>
+	</noscript>
+
+	<script define:vars={{ base }}>
+		function getUnlockedDateET(now) {
+			const formatter = new Intl.DateTimeFormat("en-US", {
+				timeZone: "America/New_York",
+				year: "numeric",
+				month: "2-digit",
+				day: "2-digit",
+			});
+
+			const parts = formatter.formatToParts(now);
+			const year = parts.find((p) => p.type === "year")?.value;
+			const month = parts.find((p) => p.type === "month")?.value;
+			const day = parts.find((p) => p.type === "day")?.value;
+
+			return `${year}-${month}-${day}`;
+		}
+
+		function clear(el) {
+			while (el.firstChild) el.removeChild(el.firstChild);
+		}
+
+		async function loadArchive(base) {
+			const root = document.getElementById("archive-root");
+			if (!root) return;
+
+			try {
+				const res = await fetch(`${base}puzzles/manifest.json`, {
+					cache: "no-store",
+				});
+				if (!res.ok) throw new Error("Manifest not found");
+				const manifest = await res.json();
+
+				const unlockedDate = getUnlockedDateET(new Date());
+				const available = (Array.isArray(manifest) ? manifest : [])
+					.filter((p) => p && typeof p.date === "string" && p.date <= unlockedDate)
+					.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+
+				clear(root);
+
+				if (!available.length) {
+					const p = document.createElement("p");
+					p.textContent = "No puzzles available yet.";
+					root.appendChild(p);
+					return;
+				}
+
+				const list = document.createElement("ul");
+				list.style.listStyle = "none";
+				list.style.padding = "0";
+
+				available.forEach((puzzle) => {
+					const li = document.createElement("li");
+					li.style.marginBottom = "0.5rem";
+					const a = document.createElement("a");
+					a.href = `${base}p/${puzzle.date}/`;
+					a.textContent = `${puzzle.date} - ${puzzle.title}`;
+					li.appendChild(a);
+					list.appendChild(li);
+				});
+
+				root.appendChild(list);
+			} catch (e) {
+				clear(root);
+				const p = document.createElement("p");
+				p.textContent = "Failed to load puzzles.";
+				root.appendChild(p);
+				console.error("Failed to load manifest:", e);
+			}
+		}
+
+		loadArchive(base);
+	</script>
 </Layout>
