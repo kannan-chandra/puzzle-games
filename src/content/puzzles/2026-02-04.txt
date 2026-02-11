@@ -1,0 +1,81 @@
+//draft
+Title
+---
+Three Treasures for Three Thieves
+
+Puzzle
+---
+
+Three heists in one day!
+3 objects, 3 thieves, 3 collections
+Thief A was spotted in Modern
+
+An Embarrassment for the museum
+An expert comes out and says that the vase is a Donald Judd forgery and that the item in Rennaissance is a replica
+
+A confession
+Thief B says he stole the Replica cos he didn't get credit for original heist.
+
+Museum accpets
+Painting is not genuine. The artifact in the Modern Collection is not genuine.
+
+
+
+
+
+=== CLUES (themed) ===
+1. Vase is a Forgery.
+2. Painting is not a Genuine.
+3. Genuine is not displayed in Modern Collection.
+4. Replica is displayed in Rennaissance Collection.
+
+=== NOTES (verbatim) ===
+Swap around the 3x3x3 for better theming. 
+Add a fourth layer outside the logic puzzle for which thief took which item. One thief says he stole the replica because when he stole the original 20 years ago the museum hid it and didn't give him credit. 
+Thief A -> Replica
+Thief B -> Location
+Thief C -> Artifact
+An art expert has opinions about the fake and replica: the replica is kept in a specific gallery where he was not allowed in. Maybe his claim about the forgery is also about a room? it could also be about the item.
+
+=== SOLVE TRACE (themed, chronological) ===
+1. Vase is a Forgery.   (CB(2, 0))
+2. Replica is displayed in Rennaissance Collection.   (AC(1, 1))
+3. Contemporary Collection contains Statue.   (AB(0, 2))
+4. Rennaissance Collection contains Painting.   (AB(1, 1))
+5. Modern Collection contains Vase.   (AB(2, 0))
+6. Genuine is displayed in Contemporary Collection.   (AC(0, 0))
+7. Forgery is displayed in Modern Collection.   (AC(2, 2))
+8. Statue is a Genuine.   (CB(0, 2))
+9. Painting is a Replica.   (CB(1, 1))
+
+LAST DEDUCTION: Painting is a Replica.   (CB(1, 1))
+
+=== SOLUTION (themed) ===
+Answer key (themed slots):
+  - Contemporary Collection: Statue; Genuine
+  - Rennaissance Collection: Painting; Replica
+  - Modern Collection: Vase; Forgery
+
+Question
+---
+Who has stolen a genuine artifact
+
+Options
+---
+Thomas Thirudan
+Kenneth Klept
+Leo the Lifter
+
+Answer
+---
+2
+
+Explanation
+---
+
+Spiritual Somnolence is conjured with Moonleaf burnt in a Brass Pipe
+Rapturous Repose is created with Papaver seed ground in a Stone Bowl. 
+Ethereal Elevation is brewed in a Whiskey Glass with Peel of Aurantium, also known as an orange peel.
+
+The Potion of Ethereal Elevation is also known as an Old Fashioned. 
+
