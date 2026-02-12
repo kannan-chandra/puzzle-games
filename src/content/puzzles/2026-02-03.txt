@@ -6,17 +6,19 @@ Puzzle
 ---
 Arch Alchemist Geralt the Incomparable, Warden of the Seventh Distillation, looked upon the state of his domain.
 
-His arcane laboratory lay in tatters. Shattered glass and shredded parchment was all that remained of years of work. And the culprit, the only member of his staff, sat on his hind legs in the corner of the room.
+His arcane laboratory lay in tatters. Shattered glass and shredded parchment were all that remained of years of work. And the culprit, the only member of his staff, sat on his hind legs in the corner of the room.
 
 Sir Snuggleheim the Cockapoo looked toward him, but not at him, his face a paradoxical mix of guilt and innocence.
 
-Supreme Spellwright Gerald the Incalculable, Grand Curator of the Transmutative Tincture, looked down at his feet and recognized some words on a few fragments of paper. The detritus of his life's greatest work: **His Three Elixirs**. 
+Supreme Spellwright Gerald the Incalculable, Grand Curator of the Transmutative Tincture, inspected his shelves. His containers, it would seem, had survived on a higher shelf: his Stone Bowl, Copper Pipe, and Whiskey Glass.
 
-*Rapturous Repose.*
-*Ethereal Elevation.*
-*Spiritual Somnolence.*
+He looked down at his feet and recognized some words on a few fragments of paper. The detritus of his life's greatest work: the formulae for his **Three Elixirs**. 
 
-Now, mere scraps. 
+***The Elixir of Rapturous Repose.***
+***The Elixir of Ethereal Elevation.***
+***The Elixir of Spiritual Somnolence.***
+
+Now, mere scraps on the ground. 
 
 *"...for only a mighty fool looks to create Rapturous Repose using a Peel of Aurentium, which is rightfully only held in a Whiskey Glass..."*
 
@@ -24,7 +26,9 @@ Now, mere scraps.
 
 *"The path to Spiritual Somnolence starts with a single Moonleaf..."*
 
-With a deep sigh, he reached for a Whiskey Glass and placed within it a single Peel of Aurentium.
+With a deep sigh, he looked to see what was left of his ingredients. Papaver Seed and Moonleaf were nowhere to be found. 
+
+Eyeing his containers, he reached for his Whiskey Glass and placed within it a single Peel of Aurentium.
 
 And so — not for the first time, and most definitely not the last — High Wizard Jerry the Inconsolable, Keeper of the Together, concocted a familiar brew. 
 
