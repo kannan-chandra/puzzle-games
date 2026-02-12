@@ -48,7 +48,13 @@ test.describe('puzzle site integration', () => {
     await expect(puzzleContent).toContainText('latest available fixture puzzle');
 
     const title = page.locator('#puzzle-title-latest');
-    await expect(title).toContainText('Puzzle for 2030-01-02');
+    await expect(title).toContainText('Fixture Puzzle Two');
+
+    const quoteBlock = page.locator('#puzzle-content-latest blockquote.rt-quote');
+    await expect(quoteBlock).toHaveCount(1);
+    await expect(page.locator('#puzzle-content-latest blockquote.rt-quote h1')).toHaveText('Witness Note');
+    await expect(quoteBlock).toContainText('This clue should appear inside a quote block.');
+    await expect(puzzleContent).toContainText('This line should appear outside the quote.');
   });
 
   test('future puzzle page redirects to home', async ({ page }) => {
@@ -70,7 +76,7 @@ test.describe('puzzle site integration', () => {
     await expect(puzzleContent).toContainText('future fixture puzzle');
 
     const title = page.locator('#puzzle-title-latest');
-    await expect(title).toContainText('Puzzle for 2030-01-03');
+    await expect(title).toContainText('Fixture Puzzle Three');
 
     await context.close();
   });

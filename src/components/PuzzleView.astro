@@ -67,22 +67,106 @@ const title =
       return text;
     }
 
+    function renderInlineRichText(text) {
+      const escaped = escapeHtml(text);
+      const formatted = applyInlineFormatting(escaped);
+      return formatted.replace(/\n/g, "<br />");
+    }
+
+    function splitParagraphs(text) {
+      return text
+        .split(/\n\s*\n/)
+        .map((para) => para.trim())
+        .filter((para) => para.length > 0);
+    }
+
+    function renderQuoteBlockHtml(lines) {
+      const parts = [];
+      let paragraphLines = [];
+
+      function flushParagraph() {
+        const joined = paragraphLines.join("\n").trim();
+        paragraphLines = [];
+        if (!joined) return;
+        parts.push(`<p>${renderInlineRichText(joined)}</p>`);
+      }
+
+      lines.forEach((line) => {
+        const headingMatch = line.match(/^\s*#\s?(.*)$/);
+        if (headingMatch) {
+          flushParagraph();
+          const headingText = headingMatch[1].trim();
+          parts.push(`<h1>${renderInlineRichText(headingText)}</h1>`);
+          return;
+        }
+
+        if (!line.trim()) {
+          flushParagraph();
+          return;
+        }
+
+        paragraphLines.push(line);
+      });
+
+      flushParagraph();
+      return parts.join("");
+    }
+
     function renderRichTextLiteHtml(raw) {
       const s = String(raw ?? "");
       if (!s.trim()) return "";
 
       const normalized = s.replace(/\r\n/g, "\n");
+      const lines = normalized.split("\n");
+      const blocks = [];
 
-      // Split into paragraphs on blank lines
-      const paragraphs = normalized.split(/\n\s*\n/);
+      let activeType = null;
+      let activeLines = [];
 
-      return paragraphs
-        .map((para) => {
-          const escaped = escapeHtml(para);
-          const formatted = applyInlineFormatting(escaped);
-          const withLineBreaks = formatted.replace(/\n/g, "<br />");
-          return `<p>${withLineBreaks}</p>`;
+      function flushBlock() {
+        if (!activeType || activeLines.length === 0) return;
+        blocks.push({ type: activeType, lines: activeLines });
+        activeType = null;
+        activeLines = [];
+      }
+
+      lines.forEach((line) => {
+        const quoteMatch = line.match(/^\s*>\s?(.*)$/);
+        const isQuote = quoteMatch !== null;
+
+        if (isQuote) {
+          if (activeType !== "quote") {
+            flushBlock();
+            activeType = "quote";
+          }
+          activeLines.push(quoteMatch[1]);
+          return;
+        }
+
+        if (activeType !== "text") {
+          flushBlock();
+          activeType = "text";
+        }
+        activeLines.push(line);
+      });
+      flushBlock();
+
+      return blocks
+        .map((block) => {
+          const joined = block.lines.join("\n");
+          const paragraphs = splitParagraphs(joined);
+          if (paragraphs.length === 0) return "";
+
+          if (block.type === "quote") {
+            const quoteContent = renderQuoteBlockHtml(block.lines);
+            return `<blockquote class="rt-quote"><div class="rt-quote-inner">${quoteContent}</div></blockquote>`;
+          }
+
+          return paragraphs
+            .map((para) => `<p>${renderInlineRichText(para)}</p>`)
+            .join("\n");
         })
+        .filter(Boolean)
         .join("\n");
     }
 
@@ -177,7 +261,7 @@ const title =
       container.appendChild(card);
     }
 
-    async function resolveLatestDate(base) {
+    async function resolveLatestPuzzle(base) {
       const res = await fetch(`${base}puzzles/manifest.json`, {
         cache: "no-store",
       });
@@ -186,9 +270,10 @@ const title =
 
       const unlockedDate = getUnlockedDateET(new Date());
       const eligible = (Array.isArray(manifest) ? manifest : [])
-        .map((p) => p?.date)
-        .filter((d) => typeof d === "string" && d <= unlockedDate)
-        .sort();
+        .filter(
+          (p) => p && typeof p.date === "string" && p.date <= unlockedDate
+        )
+        .sort((a, b) => a.date.localeCompare(b.date));
 
       return eligible.length ? eligible[eligible.length - 1] : null;
     }
@@ -197,8 +282,8 @@ const title =
       let activeDate = date;
       if (activeDate === "latest") {
         try {
-          const resolved = await resolveLatestDate(base);
-          if (!resolved) {
+          const resolved = await resolveLatestPuzzle(base);
+          if (!resolved || !resolved.date) {
             const puzzleEl = document.getElementById(`puzzle-content-${date}`);
             if (puzzleEl) {
               puzzleEl.innerHTML =
@@ -206,10 +291,15 @@ const title =
             }
             return;
           }
-          activeDate = resolved;
+          activeDate = resolved.date;
 
           const titleEl = document.getElementById(`puzzle-title-${date}`);
-          if (titleEl) titleEl.textContent = `Puzzle for ${activeDate}`;
+          if (titleEl) {
+            titleEl.textContent =
+              typeof resolved.title === "string" && resolved.title.trim().length
+                ? resolved.title
+                : `Puzzle for ${activeDate}`;
+          }
 
           const dateEl = document.getElementById(`puzzle-date-${date}`);
           if (dateEl) {

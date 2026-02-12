@@ -5,6 +5,10 @@ Fixture Puzzle Two
 Puzzle
 ---
 This is the latest available fixture puzzle.
+> # Witness Note
+> This clue should appear inside a quote block.
+> This line is part of the same quote block.
+This line should appear outside the quote.
 
 Question
 ---

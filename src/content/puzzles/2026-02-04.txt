@@ -5,19 +5,20 @@ Three Treasures for Three Thieves
 
 Puzzle
 ---
+A selection of headlines from an eventful week...
 
-Three heists in one day!
-3 objects, 3 thieves, 3 collections
-Thief A was spotted in Modern
+> # Three heists in one day!
+> 3 objects, 3 thieves, 3 collections
+> Thief A was spotted in Modern
 
-An Embarrassment for the museum
-An expert comes out and says that the vase is a Donald Judd forgery and that the item in Rennaissance is a replica
+> # An Embarrassment for the museum
+> An expert comes out and says that the vase is a Donald Judd forgery and that the item in Rennaissance is a replica
 
-A confession
-Thief B says he stole the Replica cos he didn't get credit for original heist.
+> # A confession
+> Thief B says he stole the Replica cos he didn't get credit for original heist.
 
-Museum accpets
-Painting is not genuine. The artifact in the Modern Collection is not genuine.
+> # Museum accepts
+> Painting is not genuine. The artifact in the Modern Collection is not genuine.
 
 
 
