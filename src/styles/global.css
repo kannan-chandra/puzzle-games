@@ -20,6 +20,7 @@
 	/* Typography */
 	--font-serif: 'PT Serif', serif;
 	--font-decorative: 'Cinzel Decorative', serif;
+	--font-quote: 'IM Fell English', serif;
 
 	/* Font Sizes - Mobile First */
 	--font-size-base: 16px;
@@ -423,6 +424,7 @@ select:focus {
 	border: 1px solid #000;
 	background: #f8f3e4;
 	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.14);
+	font-family: var(--font-quote);
 }
 
 .rt-quote-inner {
@@ -440,13 +442,14 @@ select:focus {
 
 .rt-quote h1 {
 	margin: 0 0 0.65rem;
-	padding-bottom: 0.35rem;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.45);
-	font-family: var(--font-serif);
-	font-size: 1.35rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.45);
+	font-family: var(--font-quote);
+	font-size: 1.85rem;
 	font-weight: 700;
 	line-height: 1.2;
 	letter-spacing: 0.01em;
+    text-align: center;
 }
 
 .qa-card {

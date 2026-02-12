@@ -1,65 +1,33 @@
-//draft
 Title
 ---
 Three Treasures for Three Thieves
 
 Puzzle
 ---
-A selection of headlines from an eventful week...
+A selection of reputable newspaper pages from an eventful week...
 
 > # Three heists in one day!
-> 3 objects, 3 thieves, 3 collections
-> Thief A was spotted in Modern
+> A triple heist at the Art Museum has seen three different artifacts stolen in three seemingly unrelated heists. 
+> ***Portrait of a Patron***, the ***Viridian Vase*** and the ***Statue of Saraswati*** all disappeared from three different collections at the museum.
+> The museum has declined to comment at the time of printing, but sources indicate that this is the handiwork of three master art thieves: ***Kenneth Klept***, ***Thomas Thirudan***, and ***Leo the Lifter***, the last of whom — sources tell us — was seen climbing out of the window of the Contemporary Collection.
 
-> # An Embarrassment for the museum
-> An expert comes out and says that the vase is a Donald Judd forgery and that the item in Rennaissance is a replica
+> # Rotten to the Core
+> *An anonymous expert tells us what the museum is hiding*
+> “... the idea that Donald Judd would ever make something as imprecise as a vase is ludicrous. It's a fake, I tell you. An outright forgery! As for the other artifact, there is a reason they don't let you bring your own camers into the Renaissance Collection. Wouldn't want infrared light revealing an obvious replica..."
 
-> # A confession
-> Thief B says he stole the Replica cos he didn't get credit for original heist.
+> # Confession of a Spurned Thief
+> * Thomas Thirudan writes in by himself to right a wrong *
+> “When I first stole it in ‘36, I never expected to have to steal it again. But when the museum replaced it with a replica to cover up my daring heist, I had to do it again so the world knew my name."
 
-> # Museum accepts
-> Painting is not genuine. The artifact in the Modern Collection is not genuine.
+> # An Embarrassment for Art
+> “It is true that the painting we lost three days ago is not a genuine artifact," the head curator said in the first public press conference since the heist that shook the art world.
+> When pressed on the status of the investigation in the Modern Collection, he paused for several seconds before admitting, “Our investigation is starting to cast serious doubt on the legitimacy of that artifact as well."
 
-
-
-
-
-=== CLUES (themed) ===
-1. Vase is a Forgery.
-2. Painting is not a Genuine.
-3. Genuine is not displayed in Modern Collection.
-4. Replica is displayed in Rennaissance Collection.
-
-=== NOTES (verbatim) ===
-Swap around the 3x3x3 for better theming. 
-Add a fourth layer outside the logic puzzle for which thief took which item. One thief says he stole the replica because when he stole the original 20 years ago the museum hid it and didn't give him credit. 
-Thief A -> Replica
-Thief B -> Location
-Thief C -> Artifact
-An art expert has opinions about the fake and replica: the replica is kept in a specific gallery where he was not allowed in. Maybe his claim about the forgery is also about a room? it could also be about the item.
-
-=== SOLVE TRACE (themed, chronological) ===
-1. Vase is a Forgery.   (CB(2, 0))
-2. Replica is displayed in Rennaissance Collection.   (AC(1, 1))
-3. Contemporary Collection contains Statue.   (AB(0, 2))
-4. Rennaissance Collection contains Painting.   (AB(1, 1))
-5. Modern Collection contains Vase.   (AB(2, 0))
-6. Genuine is displayed in Contemporary Collection.   (AC(0, 0))
-7. Forgery is displayed in Modern Collection.   (AC(2, 2))
-8. Statue is a Genuine.   (CB(0, 2))
-9. Painting is a Replica.   (CB(1, 1))
-
-LAST DEDUCTION: Painting is a Replica.   (CB(1, 1))
-
-=== SOLUTION (themed) ===
-Answer key (themed slots):
-  - Contemporary Collection: Statue; Genuine
-  - Rennaissance Collection: Painting; Replica
-  - Modern Collection: Vase; Forgery
 
 Question
 ---
-Who has stolen a genuine artifact
+Three artifacts were stolen: a replica, a forgery, and a genuine artifact. 
+Who has stolen the genuine artifact?
 
 Options
 ---
@@ -69,14 +37,12 @@ Leo the Lifter
 
 Answer
 ---
-2
+3
 
 Explanation
 ---
+Contemporary Collection held the Statue of Saraswati, a Genuine artifact that was stolen by Leo the Lifter
 
-Spiritual Somnolence is conjured with Moonleaf burnt in a Brass Pipe
-Rapturous Repose is created with Papaver seed ground in a Stone Bowl. 
-Ethereal Elevation is brewed in a Whiskey Glass with Peel of Aurantium, also known as an orange peel.
+Rennaissance Collection held Portrait of a Patron, a Replica that was stolen by Thomas thirudan
 
-The Potion of Ethereal Elevation is also known as an Old Fashioned. 
-
+Modern Collection held the Viridian Vase, a Forgery that was stolen by Kenneth Klept
