@@ -122,15 +122,40 @@ const title =
 
       let activeType = null;
       let activeLines = [];
+      let inCodeFence = false;
 
       function flushBlock() {
-        if (!activeType || activeLines.length === 0) return;
+        if (!activeType) return;
+        if (activeType !== "code" && activeLines.length === 0) return;
         blocks.push({ type: activeType, lines: activeLines });
         activeType = null;
         activeLines = [];
       }
 
       lines.forEach((line) => {
+        const isFence = /^\s*```(?:\s*)$/.test(line);
+
+        if (inCodeFence) {
+          if (isFence) {
+            flushBlock();
+            inCodeFence = false;
+          } else {
+            if (activeType !== "code") {
+              activeType = "code";
+            }
+            activeLines.push(line);
+          }
+          return;
+        }
+
+        if (isFence) {
+          flushBlock();
+          activeType = "code";
+          activeLines = [];
+          inCodeFence = true;
+          return;
+        }
+
         const quoteMatch = line.match(/^\s*>\s?(.*)$/);
         const isQuote = quoteMatch !== null;
 
@@ -155,12 +180,18 @@ const title =
         .map((block) => {
           const joined = block.lines.join("\n");
           const paragraphs = splitParagraphs(joined);
-          if (paragraphs.length === 0) return "";
 
           if (block.type === "quote") {
             const quoteContent = renderQuoteBlockHtml(block.lines);
             return `<blockquote class="rt-quote"><div class="rt-quote-inner">${quoteContent}</div></blockquote>`;
           }
+
+          if (block.type === "code") {
+            const codeContent = escapeHtml(block.lines.join("\n"));
+            return `<pre class="rt-code-block"><code>${codeContent}</code></pre>`;
+          }
+
+          if (paragraphs.length === 0) return "";
 
           return paragraphs
             .map((para) => `<p>${renderInlineRichText(para)}</p>`)

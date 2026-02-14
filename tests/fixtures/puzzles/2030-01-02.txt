@@ -9,6 +9,10 @@ This is the latest available fixture puzzle.
 > This clue should appear inside a quote block.
 > This line is part of the same quote block.
 This line should appear outside the quote.
+```
+for i in range(3):
+  print("**literal** <tag>")
+```
 
 Question
 ---

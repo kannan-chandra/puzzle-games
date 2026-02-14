@@ -55,6 +55,12 @@ test.describe('puzzle site integration', () => {
     await expect(page.locator('#puzzle-content-latest blockquote.rt-quote h1')).toHaveText('Witness Note');
     await expect(quoteBlock).toContainText('This clue should appear inside a quote block.');
     await expect(puzzleContent).toContainText('This line should appear outside the quote.');
+
+    const codeBlock = page.locator('#puzzle-content-latest pre.rt-code-block code');
+    await expect(codeBlock).toHaveCount(1);
+    await expect(codeBlock).toContainText('for i in range(3):');
+    await expect(codeBlock).toContainText('print("**literal** <tag>")');
+    await expect(page.locator('#puzzle-content-latest pre.rt-code-block strong')).toHaveCount(0);
   });
 
   test('future puzzle page redirects to home', async ({ page }) => {
