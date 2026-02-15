@@ -1,0 +1,41 @@
+//draft
+Title
+---
+Birthday seating
+
+Puzzle
+---
+=== CLUES (themed) ===
+1. Lion is to the right of Betty.
+2. Jaguar is to the left of Betty.
+3. Mouse is to the left of Alice.
+4. Dana is to the right of Alice.
+5. Dana is assigned Koala.
+
+Notes:
+The animals are costumes. Betty is the birthday girl's little sister and she wants a lion and jaguar by her side. dana has shown up in a koala costume. these are all sisters. Alice is the oldest and it's her birthday; she is okay with being seated anywhere. Qn is where should she sit. 
+Iterate on the narrative a bit. not convinced. 
+
+Question
+---
+What should the birthday girl wear?
+
+Options
+---
+Jaguar
+Koala
+Lion
+Mouse
+
+Answer
+---
+1
+
+Explanation
+---
+=== SOLUTION (themed) ===
+Answer key (themed slots):
+  - Clara: Jaguar; 1
+  - Betty: Mouse; 2
+  - Alice: Lion; 3
+  - Dana: Koala; 4

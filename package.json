@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "gen:puzzles": "node scripts/gen-puzzles.mjs",
+    "new-draft": "node scripts/new-draft.mjs",
     "dev": "node scripts/gen-puzzles.mjs --include-drafts && astro dev",
     "build": "npm run gen:puzzles && astro build",
     "test:integration": "node scripts/run-integration.mjs",

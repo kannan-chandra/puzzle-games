@@ -1,0 +1,50 @@
+//draft
+Title
+---
+Hacker password reset
+
+Puzzle
+---
+He wrote things
+
+```
+coding coding coding
+block block block
+```
+
+=== CLUES (themed) ===
+1. Where was my first holiday? answer is Paris.
+2. Oslo is before Brooklyn.
+3. Paris is after What was my first pet called?.
+4. Who was my first girlfriend? is after Paris.
+5. Sydney is after Who was my first girlfriend?.
+
+=== NOTES (verbatim) ===
+This seems solvable in your head. I think this should be prose with corrupted code snippets. so each snippet can show relative order. also, add "Where was my first job?" as a standalone clue; that way, all 8 nouns are revealed in document form. Last question should be "What's the answer to the last question?"
+
+
+
+
+Question
+---
+What's the answer to the last question?
+
+Options
+---
+Sydney
+Oslo
+Paris
+Brooklyn
+
+Answer
+---
+1
+
+Explanation
+---
+=== SOLUTION (themed) ===
+Answer key (themed slots):
+  - What was my first pet called?: Oslo; First Question
+  - Where was my first holiday?: Paris; Second Question
+  - Who was my first girlfriend?: Brooklyn; Third Question
+  - Where was my first job?: Sydney; Fourth Question

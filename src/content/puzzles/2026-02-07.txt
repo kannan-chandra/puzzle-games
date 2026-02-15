@@ -1,0 +1,25 @@
+//draft
+Title
+---
+Draft Puzzle 2026-02-07
+
+Puzzle
+---
+Replace this placeholder puzzle text with your real puzzle.
+
+Question
+---
+Replace with your question.
+
+Options
+---
+Option 1
+Option 2
+
+Answer
+---
+1
+
+Explanation
+---
+Replace with an explanation shown after the user answers.
