@@ -454,10 +454,18 @@ select:focus {
 }
 
 .rt-code-block {
-	max-width: 70ch;
+	--rt-code-columns: 43ch;
+	--rt-code-pad-y: 0.75rem;
+	--rt-code-pad-x: 0.9rem;
+	--rt-code-border-width: 1px;
+	width: min(
+		100%,
+		calc(var(--rt-code-columns) + (2 * var(--rt-code-pad-x)) + (2 * var(--rt-code-border-width)))
+	);
+	max-width: calc(var(--rt-code-columns) + (2 * var(--rt-code-pad-x)) + (2 * var(--rt-code-border-width)));
 	margin: var(--spacing-sm) auto;
-	padding: 0.75rem 0.9rem;
-	border: 1px solid #4a4d53;
+	padding: var(--rt-code-pad-y) var(--rt-code-pad-x);
+	border: var(--rt-code-border-width) solid #4a4d53;
 	border-radius: 6px;
 	background: #33373d;
 	color: #f4f4f4;

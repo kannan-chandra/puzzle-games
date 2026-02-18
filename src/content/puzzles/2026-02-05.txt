@@ -1,29 +1,154 @@
-//draft
 Title
 ---
 Hacker password reset
 
 Puzzle
 ---
-He wrote things
+Sweat trickled down his brow and onto his glasses, as famed black hat hacker Rootkit Raccoon typed away at the keyboard. It didn't help that he was suspended from the ceiling, limbs akimbo as he balanced himself just above the singular workstation in the room. The room itself glowed a uniform white, bordering on copyright infringement.
+
+*Alright, I'm in. Password reset questions should be decrypted any minute now.*
 
 ```
-coding coding coding
-block block block
+▒\xFE░░▓▓▒└\xAD░|▒░░▒]░▒░##@@▒░▒{░ERR!##
+░░░╩░▓%PDF-2.0▓└░│▒▓▒░▓▓░▓▓▒░▒▒╩░├▓▒▒▓┐▒
+▓▒░▒░▒╗▒▒▓▒└▒▓▓▓░░▓▒▓▒▓┐▒░▒▓▒▒▒▓▓▒▒▓░▓▓▓
+▓▓▒░▓░▒░░░▒▒░▒░▒▒▓░▒▓╩▒▒▒▓░░▓░▓╠▓▓▒▒▒▓░▒
+░┤░▓░▓▓┼└▓▓▓░╦░▒╔▒▒▒░░░░▒▓▒░▓▒▓▓┬░░╩▒▓░░
+▒▓░▒▓▓▒░▓▒░▒▓░▒▓▓░▒▒░░─▒▓▓░▓▓▓░▓░┼░▓░▒░▓
+░┐░▒░░▓▓░▒░░░▓▒▒┼▓░▒▒░▓▒▓░▒░▒▓░░╬░▒░▒▓░░
+╔░▓▒░░▒░▒╗▓▓▒▒░▓▓░▓▓░▓▒▓▓▓├▒░▓▒▒▓▓▓▓▓▓░░
+▒┌░▒▒▒▒▓░░▒░╝▒▒▓▒▓▒╝▒┘▓░╔▒▓░▓▒▓▒░▓░▓░▒▓▓
+▓▓▒╝▓░▒░░░▓▒▒░▒▒░┐░▓┘░▓▓░▒▒▓▒▓▓▓▓▒▓▓▒▓░░
+▓░┌┘▒╠▒▒▓┐░▓▒┌░▓░▒┤░░▒▒░▓░▓▓▒▓░░░░▓░├▒▒░
+░╦▒▓─▒▓▓░░░▒░▒┬░▓▒▓▒░└▓░▓▓┘▓░░▒▒▓░▒░░▓░▓
+Q: Where was my first holiday? A: Paris░
+░▓▓▓▓▓▓┼▒▓┬▓▒░░░░░┐░░░▓░░▒▓▒▓░▒░▒▒▓│┘╣┐▒
+┼▒▒▓▒▒▒░▒▒░▒┼▒░░░░▓▓▓▓░╗▓░░▒▓▒╚▓╩▓▒░▒░░▓
 ```
 
-=== CLUES (themed) ===
-1. Where was my first holiday? answer is Paris.
-2. Oslo is before Brooklyn.
-3. Paris is after What was my first pet called?.
-4. Who was my first girlfriend? is after Paris.
-5. Sydney is after Who was my first girlfriend?.
+Raccoon cocked his eyebrow. Much more corruption than he was expecting.
 
-=== NOTES (verbatim) ===
-This seems solvable in your head. I think this should be prose with corrupted code snippets. so each snippet can show relative order. also, add "Where was my first job?" as a standalone clue; that way, all 8 nouns are revealed in document form. Last question should be "What's the answer to the last question?"
+*No problem, we do now have one answer key. Let's try again.*
 
+```
+░░▓░┼▒▒▒▓▒▓▓▓▓░▒▒┐├┤▓▒▒┬░▓▓▓╝░▒░─▓▓▒▒▒}]
+▓░░░░┴▓░▒▓░▒░▓░▓░░░▓░░▒░▒▒▒▒░▓▓░░▓▓▓▒▓│▒
+▓░░░░▓╬▓▒▒░▓▓░╔▒▒▒▒▓▒░╝▒▒░▒▒▒░┐▒▓░▒▒▓▓▒▓
+░░▓▒▒▒░░▒╗╬░░▒▓░░▓▓▓▓░░╚▒░░▓▒▓░▓▓▒▓▓░▓░░
+░░░▓╔▓░▓░▒░░┐▒▓╝▒▒░░░▓▒░▓░▓▒▓▒░▓▒▓▓┘▓▒╚▒
+▓░▓▒░▓╣▓░▒╝░▒░▒▒▓▒░▓▒░▒▓░▒░▓─└░░┼░░▓▓▓▓▓
+▓▒▒▓░▓▒▒░▓▓▓┼▒▒▒▓▓▓░▓┬╝░░▒▒▓▓░▒░▓╩▒░┼▒┘▒
+▓░░▓░▒▒░░░┤┬▒▓░░▓╬▓▓▒▒░┬▒┴▒▒░╝▓▒▓▓▓▒░░░▓
+╬▒▓▓▓▓▒▓▒▓▓▓▓░░░▓░▒▓▒▓░▓▒▓░░░▒▒▓▓▓▒░░░▓▒
+▓▒░▓Q: What was my first pet called?▓│▓▒
+▓░▓▒░░▓░╝▓░╣░▒▒▓▓▒▓┼▒▒┘╣░░▓▓░▒▓▒▓╝╗▒▓▒╚╝
+▒░░▒▒▓▓▓▒▓▒▓░▓▓░▓░▒░▓▒▓░░┘▒░▒▒─▓A: Paris
+╚░▒▓▒▒░▒▓▓▓░▓▓╗▓▒░╩▒▒▓▓░▓▒▓▒▓▒┴░▒▓╦▓▓▒▓▓
+▒┘▒▓▒▒░▒▓▓░░▒▒░░░░│▒▓░░▒▒░╩▒▒▓▓┼▓░▒▒▒▒▓▒
+╩▒░▒░▒▓▓▓▒▓░▓▓░░▒▒▓▒╗░▒▒▓▓╚▓▓▓▒░▓░░▓▒░▒▒
+```
 
+Raccoon froze. This was worse. A question and an answer, but only corrupted data in between them.
 
+*Again.*
+
+```
+░▒▓░▒▓╣▓│▒┌▒▓▓▓▒╔▒░\xAD{WARN!##▒▓░▓▓▓▒▓▒
+▓░▒▓░▓▓▓░▒▒▓▓▓╩▒▒▒▓▒▓░░░▓─┬░▓▒░▒░▓╗░░┌▒░
+▒▓▒░▓▒─░┤▒▓▓┬▓%PDF-1.7▒▒░░▒▒╦╩▒░░┌▓▓▒▓░░
+▒╦░░│░┬▓▒░▓░▒▒▒{▒░▓╔▓▓▓▒│▒▒▓░▒┼░▒▓╣░░░▒▒
+▒▒└░▒▓▓╣▓▒▒▒┌░▒░▒░▒░▒▓░╬░░▓░▒▒▒▒▒▓\x08▒┐
+░░░┌▒░░░▒▓▒░░▒▓░▒░░▓░▓░░▓░░▓░░▓┘╦▓▒▓▒▓▒░
+└─░▓░▒░▓░░┤▓└░|░▓░░▓▓░▓▒▒▓░▒┐▓░▓░▒░▓░░░▒
+▓░▒▒▒▓░▒░▓▓╣░░░▒░▒▓░░▒▒─▒▒▒░▒▒░░▒▓▒▓╝▒▓▓
+▒░─╔░░▒▓▒▒▓▒░▒▓▓▓▓▒▒╝░▒▒▓▒▓▒░▒▓▒▓▒▒▒▒▒░░
+▒░▒▓░A: Oslo╠░░▒▒▒▓▓▓▒▒░▓─░░▒░▒▒▒▓░░▒▓▓░
+░│▓░▓░▒▓░▓░▓▒▓▓░┌░▒▒░▒▒▓▓▓░▒▒▓░▓░▓░▒▒▒▓▓
+░░▓░░▓▒▒▒▒░▓░░░░▓▓░▓▓▓▒▒▓┬┬│▓└─░╝░▓▒##@@
+▒▒▓▒┼▓░░░▓▒░▓▓░░╝▒░░░▒├░▒▓▓▒▒▓░▓▓▒▒▒░▓┌┴
+▓░▓▓░░▒▒╝▓▓░░▒░▒░▓▓░▓A: Brooklyn░░░░▓░▓▒
+░░▓▓▓░▓▒▒░╗▒░░▒┤▒▒┐▒░▓░░░▒▒▒░░░░░░┤▓▓▒▓▒
+```
+
+A loud click snapped him out of his shock. The outer door of the vault had just been unlocked. Sixty seconds of authentication, and whoever was coming in would open the door to find him hanging from the ceiling.
+
+*Okay, don't panic. Work the problem.*
+
+*We have corruption, but that has also given us information. The data between "Oslo" and "Brooklyn" is corrupted, which means Brooklyn is the answer to a later question.*
+
+```
+╠╔▓▓▒▒░░▒░▓▓╝░▓▓░░░▓▒▒--==▓~/opt/run/▓{░
+▒▓░░░░░░▒░░▒▒╬▓▓▓▓░▒░▒░▒%ZIP-3.2▒\xCA▒╣▓
+▒▓░▓▒▒▒▒▓▓░▒╠░▒▒░╗▒░▓░▒╬▓░▓╔░░▒┼░▓▓▓▓▒▓▒
+▓░▓▒▒▒▒░▓▒▓▓▒░▒▒▓░▒┼▓░▒░┘▒▒┐░▒▓░▓░▓░▓▒▓▒
+▓▓┼░▒▒░▓▒▒▒▒▓░░░▒┴├░░▒▒▒▒▓░▒▒▓╩▒▓▒░▒░░┘░
+▒▒░░▓░▒░░░░▓╦░▒▓░░░░░▓▒▒▓▒▓╩░▓░▒░┴▓▓░▓▒{
+▒▒▓▓▒▒┼▒░░░▓▓░░░▒░▒░░▒╣┴░░▒▒▒╠▒▒▒░▒▓├┐▒▒
+│░▒▓▓▓▓▓░░▓░▓▒░░┌▒▒▒▒▓░▓▓░┐▓▒▓┤╠▓░▒▒▒▓▒░
+▒░▒░░▒▓▒░▓▓▒▓▓▓░▓░░▒░▓▓▓▓▒▒▓▓▒▒░▒░▒▓▒▒┼┘
+▒▒▒▒░▒▒░▒▒░▓░▒▒░└▓▓╩╚▒░▓┌▒▓▒▓▒▒▓░▒░▒▒▓░▓
+░▒▓A: Paris▒▒▓▒░░▓▒▒▓▒▓▒▓▒░░▒░▓▓▒▒▓┬▒▓▓┐
+▒░┼▒╝░░▒░▒▓▓░▒▒▒░▓░▒▒▒░▒┴┤▓░░░░░▒▒░░▒▒▓}
+─Q: Who was my first girlfriend?┼▓░░┼▒┌▒
+▒▒─▒▓▒▓░▒┬░▓▓░░▓░░▒░▓▓▒▓░▒░░▓┬▓╬┴▒▒└▓▓▓▒
+▓▓▒▓▓░░▒▓▓░▒▓░▓░░░╬░▓▒░░│╝▒▓▒╔▒╝▒░░▓▓▒▒▒
+```
+
+Footsteps approached the inner door. Thirty more seconds, at best.
+
+*I know there are four questions total. I don't have enough information yet.*
+
+*Again.*
+
+```
+▒▒▒▒░▓▒▒▓▓▒▒▓▓░▓┘┌└░▒▒▒▓▓▒▓░▓▓▒▒░▒░▒╔▓▓▓
+▒╚▓▒░░░░░▒▒▒░░░▒░░▓▓░▒▒░┴┴▓└░▒▓░▓▒▓╣░▓▒|
+▓▒╣▓░░┬░░▓░░▓░░░▓░▒▒▓░░└▓░▓▓▒▓╔▓▓▒░▒▒░▓}
+│Q: Who was my first girlfriend?▓▒▓░░{}░
+▓▓▒░▒▒┼▒░▒░▒▓▒▒▓▒░▓░╣▓▓▓▒▓░▒▓▒╩░░▓▒▒▒▓▒▒
+░░╚┘▒░░▒▒░▓╬▒─░╣┤╚░▓▓░▓▒░╠░░▓▓░▒▒░▓▓▒}|▒
+▒▓▓▒▓┴▓▓▒▒░▓▒▒▒▓▓▒▓▒A: Sydney░▓▒░▓▓┘▒▒▓▒
+░░▒▓▒▓▓▓▒▓╬▓▒▒▓░░░░▒▓▓▓▒▓▒▒▓▓▒┬╩▒▒▒▒▒▒░▒
+▓▓▓░▓▒▓▓▓░▓╗▓░▓▓▒░▒▒▓░▓▓░┐▓▓▓▓▓▓┐░▒╩┴///
+┘▓▓▓▒▓┤░▓░▓░▒░╚▒▓▒▓░░░░┘▓▒▓▓▓▒░░░▒░┼▒▓░|
+▒░░▒▒░▓▒▒▒▒▒▓▓░╝░▒░░░░░▒░▒▓▓▒┘▓░╦▓░▓▓}{}
+▓░▓░▒╩▓─▒▓▓▒▒▓├▒▓▓▓▒▒▓▓░░░╦▒░▒▓┼░▒▓▒▒]▓▒
+╗▒░▒▒░▓▒░▓▒▓░╣▓▓▒░░░▓▓▓▓▒░└░▒▒▓▓▒▓▓░░▓▓▓
+▒▒▓░░░┤▒╣░▓░░░░░▓▒▒░░╩╗┌▓▒░│░▒▓▒▒░▓░░▓▒▒
+▓▓ERR!##▒{\xBE░▓▓▓▓▓▒╠▓▓▓▓▓▒╦░▒▒▓▓▓▒\xBA
+```
+
+Raccoon's mind raced. Did he know enough now? 
+
+The lock on the inner door was starting to click open. 
+
+*No! I'm still missing a question.*
+
+He fired off one last command and unhooked his carabiner, shooting himself back up into the ceiling vent. His eyes caught the last screen of output on the computer, before it went black and rebooted.
+
+```
+▒▒░╦░▓▓▓▓╣░▒▒▒░▒▓░▓▓▒░░▒┬▒╗░▒░░┼▒░▒\xBE▒
+░▓▓▓▒▒░▓▒▓╦▓░▒▒░░╦╚▒░░▓▓▓┬▓▒░▒░░▒▓▓╬▒╝▒░
+▓░▒░░▓░▓▒▓░▒░░▒░╔┬▓░░░░▒░░░▓▓░▒░▓▒▒▒\x08
+╠░▓▒░░▒▓▓░░╔▓░▒░┐└░┌▒▒░░▓▒┘▓▒░▓▒▒▓▒///▒▓
+┘░╠░▓╗▒▒▓▓░▒░▒░▒▒▓▒▓░▓▓▒┴░┬░▒▒░▓░▒╚▒░▓░▒
+▓▒╦░▓┐▒░▒▓░▓▒▓▒╠▓▒▓░░▓╦▓▒▓▓▓▒░▓▒░▒▒▓╬┴░░
+┌▒▓├▓░┘▒▓╦░▒▒▒░▒░╚▓▒▒▒▓░░░▓▓▓░▒▒░▒░░{╔|░
+▒▓▒░╣▓░░▓▓░░▓▓▓░▓┬▓▓▒▒▓╬▒▓▓▓░░▓▒▓▓░▒▒▓▓▒
+░▒░Q: Where was my first job?╔▒░─▒\x1F}▒
+▒▒▓▓░▒░░▓▓▒▓▒▓▒▓▓░▓▒░▒▓▓░▒▓░░░▒▓▒▓▓▒░░▓▒
+▓└░▓░▓░░╗░▒╬▓▓░▓▒▒░▓░╚▓▒▒░╬▒░▒░░▓▒▒@@##▒
+▒▓▓▒▓░▓╣┼▓┬▒░▓▒▒▒▓░░░▒░▓▒▒▓▒▒▓▒╬▓░▓▓▓░▒▓
+▒▓▒░▒░░░▒▓▓▒░▓▒▒▓▓▓░▒▒▒░┤▓▓░▓░▒░▒▒///░░▒
+▓▒▒▒▓▒▓░▒▒░▒▒░┬▒▓░▒▓┐│░░░▒▒▓░┴▓░▓▓╗▒▓░▒▒
+▓▓╦▓▒▒▓░┴▓┼▓░▒▓▓▒░░▓▒▓├▒░▒▒▓░▓░▒▓░\x06▒▓
+```
+
+Rootkit Racoon pulled himself into the air conditioning vent right as he saw a figure walk into the room below. He leaned against the wall and caught his breath. 
+
+*Four questions. Four answers.*
+
+*Do I have it?*
 
 Question
 ---
@@ -42,9 +167,7 @@ Answer
 
 Explanation
 ---
-=== SOLUTION (themed) ===
-Answer key (themed slots):
-  - What was my first pet called?: Oslo; First Question
-  - Where was my first holiday?: Paris; Second Question
-  - Who was my first girlfriend?: Brooklyn; Third Question
-  - Where was my first job?: Sydney; Fourth Question
+First Question: What was my first pet called? Oslo
+Second Question: Where was my first holiday? Paris
+Third Question: Who was my first girlfriend? Brooklyn
+Fourth Question: Where was my first job? Sydney
