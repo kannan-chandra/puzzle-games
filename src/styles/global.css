@@ -21,7 +21,7 @@
 	--font-serif: 'PT Serif', serif;
 	--font-decorative: 'Cinzel Decorative', serif;
 	--font-quote: 'IM Fell English', serif;
-	--font-mono: 'JetBrains Mono', 'Doto', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	--font-mono: Menlo, 'JetBrains Mono', Roboto Mono, ui-monospace, SFMono-Regular, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
 	/* Font Sizes - Mobile First */
 	--font-size-base: 16px;
@@ -454,9 +454,9 @@ select:focus {
 }
 
 .rt-code-block {
-	--rt-code-columns: 43ch;
+	--rt-code-columns: 39ch;
 	--rt-code-pad-y: 0.75rem;
-	--rt-code-pad-x: 0.9rem;
+	--rt-code-pad-x: clamp(0.45rem, 2.0vw, 0.9rem);;
 	--rt-code-border-width: 1px;
 	width: min(
 		100%,
