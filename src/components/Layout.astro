@@ -2,6 +2,7 @@
 import "../styles/global.css";
 const base = import.meta.env.BASE_URL;
 const deductoryBase = `${base}deductory/`;
+const { showHeader = true } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -19,12 +20,14 @@ const deductoryBase = `${base}deductory/`;
 		
 	</head>
 	<body>
-		<header>
-			<nav>
-				<a href={deductoryBase}>Home</a>
-				<a href={`${deductoryBase}archive`}>Archive</a>
-			</nav>
-		</header>
+		{showHeader ? (
+			<header>
+				<nav>
+					<a href={deductoryBase}>Home</a>
+					<a href={`${deductoryBase}archive`}>Archive</a>
+				</nav>
+			</header>
+		) : null}
 		<main>
 			<slot />
 		</main>
