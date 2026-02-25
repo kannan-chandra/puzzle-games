@@ -213,13 +213,16 @@ http://localhost:4321/
 
 ## Deployment (GitHub Pages)
 
-* Builds happen in **GitHub Actions**
-* Output is static
-* Hosted at:
+Deploy is manual from your local machine:
 
-  ```
-  https://kurumbu-games.com/
-  ```
+```bash
+npm run deploy
+```
+
+What this does:
+
+* Runs `npm run build`
+* Publishes `dist/` to the `gh-pages` branch via `gh-pages`
 
 Astro config uses:
 

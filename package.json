@@ -7,6 +7,7 @@
     "new-draft": "node scripts/new-draft.mjs",
     "dev": "node scripts/gen-puzzles.mjs --include-drafts && astro dev",
     "build": "npm run gen:puzzles && astro build",
+    "deploy": "npm run build && gh-pages -d dist",
     "test:integration": "node scripts/run-integration.mjs",
     "preview": "astro preview",
     "astro": "astro"
@@ -16,7 +17,8 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.55.0",
-    "http-server": "^14.1.1",
-    "@types/node": "^25.2.1"
+    "@types/node": "^25.2.1",
+    "gh-pages": "^6.3.0",
+    "http-server": "^14.1.1"
   }
 }
