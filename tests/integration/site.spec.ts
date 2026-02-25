@@ -25,9 +25,15 @@ function addFixedDate(page, isoString) {
 }
 
 test.describe('puzzle site integration', () => {
+  test('home is a landing page linking to Deductory', async ({ page }) => {
+    await page.goto('');
+    await expect(page.locator('h1')).toContainText('Kurumbu Games');
+    await expect(page.locator('main').getByRole('link', { name: 'Deductory' })).toHaveAttribute('href', '/deductory/');
+  });
+
   test('archive shows past puzzles and excludes future/drafts', async ({ page }) => {
     await addFixedDate(page, '2030-01-02T15:00:00Z');
-    await page.goto('archive');
+    await page.goto('deductory/archive');
 
     const archiveRoot = page.locator('#archive-root');
     await expect(archiveRoot).toBeVisible();
@@ -41,7 +47,7 @@ test.describe('puzzle site integration', () => {
 
   test('home loads the latest available puzzle in place', async ({ page }) => {
     await addFixedDate(page, '2030-01-02T15:00:00Z');
-    await page.goto('');
+    await page.goto('deductory');
 
     const puzzleContent = page.locator('#puzzle-content-latest');
     await expect(puzzleContent).toBeVisible();
@@ -66,8 +72,8 @@ test.describe('puzzle site integration', () => {
 
   test('future puzzle page redirects to home', async ({ page }) => {
     await addFixedDate(page, '2030-01-02T15:00:00Z');
-    await page.goto('p/2030-01-03/');
-    await page.waitForURL(/\/puzzle-games\/$/);
+    await page.goto('deductory/p/2030-01-03/');
+    await page.waitForURL(/\/deductory\/$/);
     await expect(page.locator('#puzzle-content-latest')).toBeVisible();
   });
 
@@ -76,7 +82,7 @@ test.describe('puzzle site integration', () => {
     const page = await context.newPage();
 
     await addFixedDate(page, '2030-01-03T15:00:00Z');
-    await page.goto('');
+    await page.goto('deductory');
 
     const puzzleContent = page.locator('#puzzle-content-latest');
     await expect(puzzleContent).toBeVisible();

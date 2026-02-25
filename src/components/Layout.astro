@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 const base = import.meta.env.BASE_URL;
+const deductoryBase = `${base}deductory/`;
 ---
 
 <!DOCTYPE html>
@@ -8,7 +9,7 @@ const base = import.meta.env.BASE_URL;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Puzzle Games</title>
+		<title>Kurumbu Games</title>
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
@@ -21,14 +22,15 @@ const base = import.meta.env.BASE_URL;
 		<header>
 			<nav>
 				<a href={`${base}`}>Home</a>
-				<a href={`${base}archive`}>Archive</a>
+				<a href={deductoryBase}>Deductory</a>
+				<a href={`${deductoryBase}archive`}>Archive</a>
 			</nav>
 		</header>
 		<main>
 			<slot />
 		</main>
 		<footer>
-			<p>&copy; 2026 Puzzle Games. All rights reserved.</p>
+			<p>&copy; 2026 Kurumbu Games. All rights reserved.</p>
 		</footer>
 	</body>
 </html>

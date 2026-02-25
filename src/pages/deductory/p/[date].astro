@@ -1,7 +1,7 @@
 ---
-import { getAllPuzzleMeta, hasPuzzleDate } from "../../lib/puzzles";
-import Layout from "../../components/Layout.astro";
-import PuzzleView from "../../components/PuzzleView.astro";
+import { getAllPuzzleMeta, hasPuzzleDate } from "../../../lib/puzzles";
+import Layout from "../../../components/Layout.astro";
+import PuzzleView from "../../../components/PuzzleView.astro";
 
 export async function getStaticPaths() {
   const allPuzzles = await getAllPuzzleMeta();
@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 }
 
 const { date } = Astro.params;
-const base = import.meta.env.BASE_URL;
+const base = `${import.meta.env.BASE_URL}deductory/`;
 
 if (!date) return Astro.redirect(base);
 

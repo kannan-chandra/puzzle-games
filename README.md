@@ -1,6 +1,6 @@
-# Puzzle Games
+# Kurumbu Games
 
-A static daily logic puzzle site built with **Astro** and deployed to **GitHub Pages**.
+A static puzzle site built with **Astro** and deployed to **GitHub Pages**.
 
 * One logic puzzle per day (text-based for now)
 * Simple UI: Today’s puzzle + archive
@@ -11,7 +11,7 @@ A static daily logic puzzle site built with **Astro** and deployed to **GitHub P
 Live URL (production):
 
 ```
-https://kannan-chandra.github.io/puzzle-games/
+https://kurumbu-games.com/
 ```
 
 ---
@@ -38,10 +38,10 @@ npm run dev
 Local site:
 
 ```
-http://localhost:4321/puzzle-games/
+http://localhost:4321/
 ```
 
-> Note: both `/puzzle-games` and `/puzzle-games/` are supported in dev via a redirect.
+> The landing page is served at `/`, and Deductory lives under `/deductory/`.
 
 ---
 
@@ -58,13 +58,16 @@ src/
     puzzles.ts              ← loads generated manifest
     time.ts                 ← ET date logic
   pages/
-    index.astro             ← redirects to latest available puzzle
-    archive.astro
-    p/[date].astro
+    index.astro             ← Kurumbu landing page
+    deductory/
+      index.astro           ← latest available Deductory puzzle
+      archive.astro
+      p/[date].astro
 public/
-  puzzles/
-    2026-02-01.json         ← generated (do not edit by hand)
-    manifest.json           ← generated (source of truth)
+  deductory/
+    puzzles/
+      2026-02-01.json       ← generated (do not edit by hand)
+      manifest.json         ← generated (source of truth)
 scripts/
   gen-puzzles.mjs           ← converts .txt → JSON + manifest
 ```
@@ -73,7 +76,7 @@ scripts/
 
 ## Adding Puzzles (UPDATED)
 
-> **Do not edit files in `public/puzzles/` directly.**
+> **Do not edit files in `public/deductory/puzzles/` directly.**
 > They are generated automatically.
 
 ### 1) Create a new puzzle text file
@@ -148,11 +151,9 @@ npm run gen:puzzles
 
 This will:
 
-* Convert each `.txt` puzzle into `public/puzzles/YYYY-MM-DD.json`
-* Generate `public/puzzles/manifest.json`
+* Convert each `.txt` puzzle into `public/deductory/puzzles/YYYY-MM-DD.json`
+* Generate `public/deductory/puzzles/manifest.json`
 * Delete any stale JSON files for puzzles that no longer exist
-
-You should **commit the generated `public/puzzles/` files**.
 
 ---
 
@@ -177,8 +178,9 @@ Behavior:
 npm run dev
 ```
 
-* `/` redirects to the **latest available puzzle ≤ today (ET)**
-* Archive lists **only puzzles that actually exist**
+* `/` is the Kurumbu Games landing page
+* `/deductory/` loads the **latest available puzzle ≤ today (ET)**
+* `/deductory/archive` lists **only puzzles that actually exist**
 * Missing days are allowed (no requirement for daily continuity)
 
 ---
@@ -187,8 +189,8 @@ npm run dev
 
 * The site computes **today’s date in America/New_York**
 * It looks at the generated `manifest.json`
-* It redirects to the **most recent puzzle that is not in the future**
-* If no puzzles exist yet, `/` shows a friendly message
+* Deductory resolves to the **most recent puzzle that is not in the future**
+* If no puzzles exist yet, `/deductory/` shows a friendly message
 
 No daily rebuild is required unless you add new puzzles.
 
@@ -204,7 +206,7 @@ npm run preview
 Preview URL:
 
 ```
-http://localhost:4321/puzzle-games/
+http://localhost:4321/
 ```
 
 ---
@@ -216,21 +218,20 @@ http://localhost:4321/puzzle-games/
 * Hosted at:
 
   ```
-  https://kannan-chandra.github.io/puzzle-games/
+  https://kurumbu-games.com/
   ```
 
 Astro config uses:
 
 ```js
-site: "https://kannan-chandra.github.io"
-base: "/puzzle-games/"
+site: "https://kurumbu-games.com"
 ```
 
 ---
 
 ## Notes / Design Decisions
 
-* `public/puzzles/manifest.json` is the **single source of truth**
+* `public/deductory/puzzles/manifest.json` is the **single source of truth**
 * Routes are generated only for existing puzzles
 * Future puzzle dates cannot be accessed unless a puzzle file exists
 * Obfuscation/security is intentionally minimal (static site)

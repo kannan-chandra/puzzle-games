@@ -1,8 +1,15 @@
 ---
 import Layout from "../components/Layout.astro";
-import PuzzleView from "../components/PuzzleView.astro";
+const base = import.meta.env.BASE_URL;
 ---
 
 <Layout>
-  <PuzzleView date="latest" />
+  <section class="text-center">
+    <h1>Kurumbu Games</h1>
+    <p>Daily deduction games and future puzzle experiments.</p>
+    <p>
+      Play now:
+      <a href={`${base}deductory/`}>Deductory</a>
+    </p>
+  </section>
 </Layout>

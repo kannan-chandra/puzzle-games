@@ -1,0 +1,13 @@
+{
+  "date": "2026-02-03",
+  "title": "A Wizard and his Staff",
+  "puzzle": "Arch Alchemist Geralt the Incomparable, Warden of the Seventh Distillation, looked upon the state of his domain.\n\nHis arcane laboratory lay in tatters. Shattered glass and shredded parchment were all that remained of years of work. And the culprit, the only member of his staff, sat on his hind legs in the corner of the room.\n\nSir Snuggleheim the Cockapoo looked toward him, but not at him, his face a paradoxical mix of guilt and innocence.\n\nSupreme Spellwright Gerald the Incalculable, Grand Curator of the Transmutative Tincture, inspected his shelves. His containers, it would seem, had survived on a higher shelf: his Stone Bowl, Copper Pipe, and Whiskey Glass.\n\nHe looked down at his feet and recognized some words on a few fragments of paper. The detritus of his life's greatest work: the formulae for his **Three Elixirs**. \n\n***The Elixir of Rapturous Repose.***\n***The Elixir of Ethereal Elevation.***\n***The Elixir of Spiritual Somnolence.***\n\nNow, mere scraps on the ground. \n\n*\"...for only a mighty fool looks to create Rapturous Repose using a Peel of Aurentium, which is rightfully only held in a Whiskey Glass...\"*\n\n*\"... touch not Papaver Seed upon metal, lest you court insolvence...\"*\n\n*\"The path to Spiritual Somnolence starts with a single Moonleaf...\"*\n\nWith a deep sigh, he looked to see what was left of his ingredients. Papaver Seed and Moonleaf were nowhere to be found. \n\nEyeing his containers, he reached for his Whiskey Glass and placed within it a single Peel of Aurentium.\n\nAnd so — not for the first time, and most definitely not the last — High Wizard Jerry the Inconsolable, Keeper of the Together, concocted a familiar brew.",
+  "question": "What did the wizard make?",
+  "options": [
+    "Spiritual Somnolence",
+    "Ethereal Elevation",
+    "Rapturous Repose"
+  ],
+  "answer": 2,
+  "explanation": "Spiritual Somnolence is conjured with Moonleaf burnt in a Brass Pipe\nRapturous Repose is created with Papaver seed ground in a Stone Bowl. \nEthereal Elevation is brewed in a Whiskey Glass with Peel of Aurantium, also known as an orange peel.\n\nThe Potion of Ethereal Elevation is also known as an Old Fashioned."
+}

@@ -4,7 +4,7 @@ import path from "node:path";
 const SRC_DIR = path.resolve(
   process.env.PUZZLE_SRC_DIR || "src/content/puzzles"
 );
-const OUT_DIR = path.resolve("public/puzzles");
+const OUT_DIR = path.resolve("public/deductory/puzzles");
 const DRAFT_TOKEN = "//draft";
 
 const REQUIRED_SECTIONS = ["Title", "Puzzle", "Question", "Options", "Answer"];

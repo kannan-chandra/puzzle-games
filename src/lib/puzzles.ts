@@ -13,7 +13,7 @@ async function loadManifest(): Promise<PuzzleMeta[]> {
     // Read the generated manifest directly from public/
     const fs = await import("node:fs/promises");
     const path = await import("node:path");
-    const manifestPath = path.resolve("public/puzzles/manifest.json");
+    const manifestPath = path.resolve("public/deductory/puzzles/manifest.json");
 
     const raw = await fs.readFile(manifestPath, "utf8");
     cachedManifest = JSON.parse(raw) as PuzzleMeta[];
@@ -22,7 +22,9 @@ async function loadManifest(): Promise<PuzzleMeta[]> {
 
   // Browser: fetch from the deployed site (base-path aware)
   const base = import.meta.env.BASE_URL;
-  const res = await fetch(`${base}puzzles/manifest.json`, { cache: "no-store" });
+  const res = await fetch(`${base}deductory/puzzles/manifest.json`, {
+    cache: "no-store",
+  });
   if (!res.ok) {
     throw new Error(`Failed to fetch manifest: ${res.status}`);
   }
