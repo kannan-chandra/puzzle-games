@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Deductory - Narrative Logic Puzzles</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" href="/favicon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=IM+Fell+English:ital@0;1&family=JetBrains+Mono:wght@400;700&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet"><script async src="https://www.googletagmanager.com/gtag/js?id=G-CZ1QSX1PF9"></script><script>
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Oopsie at the Oscars · Feb 1, 2026 · Deductory - Narrative Logic Puzzles</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" href="/favicon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=IM+Fell+English:ital@0;1&family=JetBrains+Mono:wght@400;700&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet"><script async src="https://www.googletagmanager.com/gtag/js?id=G-CZ1QSX1PF9"></script><script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
 			gtag('js', new Date());
@@ -199,6 +199,16 @@ const base = "/deductory/";
       return `${numberPart} · ${formatPuzzleDate(dateStr)}`;
     }
 
+    function formatDocumentTitle(puzzleTitle, dateStr) {
+      const safeTitle =
+        typeof puzzleTitle === "string" && puzzleTitle.trim().length
+          ? puzzleTitle.trim()
+          : "Puzzle";
+      return `${safeTitle} · ${formatPuzzleDate(
+        dateStr
+      )} · Deductory - Narrative Logic Puzzles`;
+    }
+
     function clear(el) {
       while (el.firstChild) el.removeChild(el.firstChild);
     }
@@ -318,6 +328,8 @@ const base = "/deductory/";
           if (dateEl) {
             dateEl.textContent = formatPuzzleByline(resolved.number, activeDate);
           }
+
+          document.title = formatDocumentTitle(resolved.title, activeDate);
         } catch (e) {
           const puzzleEl = document.getElementById(`puzzle-content-${date}`);
           if (puzzleEl) {
@@ -346,6 +358,7 @@ const base = "/deductory/";
         const data = await res.json();
 
         puzzleEl.innerHTML = renderRichTextLiteHtml(data.puzzle);
+        document.title = formatDocumentTitle(data.title, activeDate);
         renderQA(qaEl, data);
       } catch (e) {
         puzzleEl.innerHTML = "<p>Error loading puzzle.</p>";
