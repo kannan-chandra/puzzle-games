@@ -17,10 +17,27 @@ function run(cmd, args, env) {
 const puzzleSrcDir = path.resolve("tests/fixtures/puzzles");
 const distDir = path.resolve("dist");
 
+let failure = null;
+
 try {
   await run("npm", ["run", "build"], { PUZZLE_SRC_DIR: puzzleSrcDir });
   await run("npx", ["playwright", "test"], { PW_SERVE_ROOT: distDir });
 } catch (err) {
-  console.error(err);
+  failure = err;
+} finally {
+  try {
+    // Restore production puzzle outputs after fixture-based integration tests.
+    await run("npm", ["run", "gen:puzzles"]);
+  } catch (restoreErr) {
+    if (!failure) {
+      failure = restoreErr;
+    } else {
+      console.error("Failed to restore puzzle outputs:", restoreErr);
+    }
+  }
+}
+
+if (failure) {
+  console.error(failure);
   process.exit(1);
 }
