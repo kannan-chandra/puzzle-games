@@ -6,7 +6,6 @@ const base = import.meta.env.BASE_URL;
 
 <Layout>
 	<h1>Archive</h1>
-	<p>Browse all available puzzles.</p>
 
 	<div id="archive-root">
 		<p>Loading puzzles...</p>
@@ -17,6 +16,17 @@ const base = import.meta.env.BASE_URL;
 	</noscript>
 
 	<script define:vars={{ base }}>
+		function formatPuzzleDate(dateStr) {
+			const [y, m, d] = String(dateStr).split("-").map((part) => Number(part));
+			const safe = new Date(Date.UTC(y, m - 1, d, 12, 0, 0));
+			return new Intl.DateTimeFormat("en-US", {
+				month: "short",
+				day: "numeric",
+				year: "numeric",
+				timeZone: "America/New_York",
+			}).format(safe);
+		}
+
 		function getUnlockedDateET(now) {
 			const formatter = new Intl.DateTimeFormat("en-US", {
 				timeZone: "America/New_York",
@@ -49,8 +59,13 @@ const base = import.meta.env.BASE_URL;
 				const manifest = await res.json();
 
 				const unlockedDate = getUnlockedDateET(new Date());
-				const available = (Array.isArray(manifest) ? manifest : [])
-					.filter((p) => p && typeof p.date === "string" && p.date <= unlockedDate)
+				const allPuzzles = (Array.isArray(manifest) ? manifest : [])
+					.filter((p) => p && typeof p.date === "string")
+					.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0))
+					.map((p, idx) => ({ ...p, number: idx + 1 }));
+
+				const available = allPuzzles
+					.filter((p) => p.date <= unlockedDate)
 					.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
 
 				clear(root);
@@ -71,7 +86,9 @@ const base = import.meta.env.BASE_URL;
 					li.style.marginBottom = "0.5rem";
 					const a = document.createElement("a");
 					a.href = `${base}p/${puzzle.date}/`;
-					a.textContent = `${puzzle.date} - ${puzzle.title}`;
+					a.textContent = `#${puzzle.number} · "${puzzle.title}" · ${formatPuzzleDate(
+						puzzle.date
+					)}`;
 					li.appendChild(a);
 					list.appendChild(li);
 				});

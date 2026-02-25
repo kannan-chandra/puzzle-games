@@ -31,8 +31,8 @@ test.describe('puzzle site integration', () => {
 
     const archiveRoot = page.locator('#archive-root');
     await expect(archiveRoot).toBeVisible();
-    await expect(archiveRoot).toContainText('2030-01-01');
-    await expect(archiveRoot).toContainText('2030-01-02');
+    await expect(archiveRoot).toContainText('#1 · "Fixture Puzzle One" · Jan 1, 2030');
+    await expect(archiveRoot).toContainText('#2 · "Fixture Puzzle Two" · Jan 2, 2030');
 
     await expect(archiveRoot).not.toContainText('2030-01-03');
     await expect(archiveRoot).not.toContainText('Fixture Draft Puzzle');
@@ -49,6 +49,7 @@ test.describe('puzzle site integration', () => {
 
     const title = page.locator('#puzzle-title-latest');
     await expect(title).toContainText('Fixture Puzzle Two');
+    await expect(page.locator('#puzzle-date-latest')).toContainText('#2 · Jan 2, 2030');
 
     const quoteBlock = page.locator('#puzzle-content-latest blockquote.rt-quote');
     await expect(quoteBlock).toHaveCount(1);
@@ -83,6 +84,7 @@ test.describe('puzzle site integration', () => {
 
     const title = page.locator('#puzzle-title-latest');
     await expect(title).toContainText('Fixture Puzzle Three');
+    await expect(page.locator('#puzzle-date-latest')).toContainText('#3 · Jan 3, 2030');
 
     await context.close();
   });

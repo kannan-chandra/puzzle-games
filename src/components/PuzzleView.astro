@@ -1,5 +1,5 @@
 ---
-import { getPuzzleMeta } from "../lib/puzzles";
+import { getAllPuzzleMeta, getPuzzleMeta } from "../lib/puzzles";
 
 type Props = {
   date: string;
@@ -21,12 +21,23 @@ function formatPuzzleDate(dateStr: string): string {
   }).format(safe);
 }
 
+function formatPuzzleByline(number: number | null, dateStr: string): string {
+  const numberPart = typeof number === "number" && number > 0 ? `#${number}` : "#?";
+  return `${numberPart} · ${formatPuzzleDate(dateStr)}`;
+}
+
 const meta = date === "latest" ? undefined : await getPuzzleMeta(date);
+const puzzleNumber =
+  date === "latest"
+    ? null
+    : (await getAllPuzzleMeta()).findIndex((p) => p.date === date) + 1;
 const title =
   meta?.title?.trim() ||
   (date === "latest"
     ? "Latest Puzzle"
     : `Puzzle for ${formatPuzzleDate(date)}`);
+const byline =
+  date === "latest" ? "Latest" : formatPuzzleByline(puzzleNumber, date);
 ---
 
 <section class="puzzle-view" aria-live="polite">
@@ -34,7 +45,7 @@ const title =
     <h1 id={`puzzle-title-${date}`}>{title}</h1>
     {showDate ? (
       <p class="puzzle-date" id={`puzzle-date-${date}`}>
-        Date: <strong>{date}</strong>
+        {byline}
       </p>
     ) : null}
   </div>
@@ -217,6 +228,28 @@ const title =
       return `${year}-${month}-${day}`;
     }
 
+    function formatPuzzleDate(dateStr) {
+      if (dateStr === "latest") return "Latest";
+      const [y, m, d] = String(dateStr)
+        .split("-")
+        .map((part) => Number(part));
+      const safe = new Date(Date.UTC(y, m - 1, d, 12, 0, 0));
+      return new Intl.DateTimeFormat("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+        timeZone: "America/New_York",
+      }).format(safe);
+    }
+
+    function formatPuzzleByline(number, dateStr) {
+      const numberPart =
+        typeof number === "number" && Number.isFinite(number) && number > 0
+          ? `#${number}`
+          : "#?";
+      return `${numberPart} · ${formatPuzzleDate(dateStr)}`;
+    }
+
     function clear(el) {
       while (el.firstChild) el.removeChild(el.firstChild);
     }
@@ -300,12 +333,12 @@ const title =
       const manifest = await res.json();
 
       const unlockedDate = getUnlockedDateET(new Date());
-      const eligible = (Array.isArray(manifest) ? manifest : [])
-        .filter(
-          (p) => p && typeof p.date === "string" && p.date <= unlockedDate
-        )
-        .sort((a, b) => a.date.localeCompare(b.date));
+      const allPuzzles = (Array.isArray(manifest) ? manifest : [])
+        .filter((p) => p && typeof p.date === "string")
+        .sort((a, b) => a.date.localeCompare(b.date))
+        .map((p, idx) => ({ ...p, number: idx + 1 }));
 
+      const eligible = allPuzzles.filter((p) => p.date <= unlockedDate);
       return eligible.length ? eligible[eligible.length - 1] : null;
     }
 
@@ -329,12 +362,12 @@ const title =
             titleEl.textContent =
               typeof resolved.title === "string" && resolved.title.trim().length
                 ? resolved.title
-                : `Puzzle for ${activeDate}`;
+                : `Puzzle for ${formatPuzzleDate(activeDate)}`;
           }
 
           const dateEl = document.getElementById(`puzzle-date-${date}`);
           if (dateEl) {
-            dateEl.innerHTML = `Date: <strong>${activeDate}</strong>`;
+            dateEl.textContent = formatPuzzleByline(resolved.number, activeDate);
           }
         } catch (e) {
           const puzzleEl = document.getElementById(`puzzle-content-${date}`);
