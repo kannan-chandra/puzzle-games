@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Kurumbu Games</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=IM+Fell+English:ital@0;1&family=JetBrains+Mono:wght@400;700&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/_astro/archive.BYSu8hQj.css"></head> <body> <header> <nav> <a href="/">Home</a> <a href="/deductory/">Deductory</a> <a href="/deductory/archive">Archive</a> </nav> </header> <main>  <h1>Archive</h1> <div id="archive-root"> <p>Loading puzzles...</p> </div> <noscript> <p>JavaScript is required to load the archive.</p> </noscript> <script>(function(){const base = "/deductory/";
+
+		function formatPuzzleDate(dateStr) {
+			const [y, m, d] = String(dateStr).split("-").map((part) => Number(part));
+			const safe = new Date(Date.UTC(y, m - 1, d, 12, 0, 0));
+			return new Intl.DateTimeFormat("en-US", {
+				month: "short",
+				day: "numeric",
+				year: "numeric",
+				timeZone: "America/New_York",
+			}).format(safe);
+		}
+
+		function getUnlockedDateET(now) {
+			const formatter = new Intl.DateTimeFormat("en-US", {
+				timeZone: "America/New_York",
+				year: "numeric",
+				month: "2-digit",
+				day: "2-digit",
+			});
+
+			const parts = formatter.formatToParts(now);
+			const year = parts.find((p) => p.type === "year")?.value;
+			const month = parts.find((p) => p.type === "month")?.value;
+			const day = parts.find((p) => p.type === "day")?.value;
+
+			return `${year}-${month}-${day}`;
+		}
+
+		function clear(el) {
+			while (el.firstChild) el.removeChild(el.firstChild);
+		}
+
+		async function loadArchive(base) {
+			const root = document.getElementById("archive-root");
+			if (!root) return;
+
+			try {
+				const res = await fetch(`${base}puzzles/manifest.json`, {
+					cache: "no-store",
+				});
+				if (!res.ok) throw new Error("Manifest not found");
+				const manifest = await res.json();
+
+				const unlockedDate = getUnlockedDateET(new Date());
+				const allPuzzles = (Array.isArray(manifest) ? manifest : [])
+					.filter((p) => p && typeof p.date === "string")
+					.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0))
+					.map((p, idx) => ({ ...p, number: idx + 1 }));
+
+				const available = allPuzzles
+					.filter((p) => p.date <= unlockedDate)
+					.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+
+				clear(root);
+
+				if (!available.length) {
+					const p = document.createElement("p");
+					p.textContent = "No puzzles available yet.";
+					root.appendChild(p);
+					return;
+				}
+
+				const list = document.createElement("ul");
+				list.style.listStyle = "none";
+				list.style.padding = "0";
+
+				available.forEach((puzzle) => {
+					const li = document.createElement("li");
+					li.style.marginBottom = "0.5rem";
+					const a = document.createElement("a");
+					a.href = `${base}p/${puzzle.date}/`;
+					a.textContent = `#${puzzle.number} · "${puzzle.title}" · ${formatPuzzleDate(
+						puzzle.date
+					)}`;
+					li.appendChild(a);
+					list.appendChild(li);
+				});
+
+				root.appendChild(list);
+			} catch (e) {
+				clear(root);
+				const p = document.createElement("p");
+				p.textContent = "Failed to load puzzles.";
+				root.appendChild(p);
+				console.error("Failed to load manifest:", e);
+			}
+		}
+
+		loadArchive(base);
+	})();</script>  </main> <footer> <p>&copy; 2026 Kurumbu Games. All rights reserved.</p> </footer> </body></html>

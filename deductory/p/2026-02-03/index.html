@@ -1,0 +1,354 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Kurumbu Games</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=IM+Fell+English:ital@0;1&family=JetBrains+Mono:wght@400;700&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/_astro/archive.BYSu8hQj.css"></head> <body> <header> <nav> <a href="/">Home</a> <a href="/deductory/">Deductory</a> <a href="/deductory/archive">Archive</a> </nav> </header> <main>  <section class="puzzle-view" aria-live="polite"> <div class="puzzle-header text-center"> <h1 id="puzzle-title-2026-02-03">A Wizard and his Staff</h1> <p class="puzzle-date" id="puzzle-date-2026-02-03"> #3 · Feb 3, 2026 </p> </div> <div id="puzzle-content-2026-02-03" class="puzzle-content"> <p>Loading puzzle...</p> </div> <div id="qa-2026-02-03" class="qa"></div> <script>(function(){const date = "2026-02-03";
+const base = "/deductory/";
+
+    // Inline puzzle client logic (compiled from TypeScript)
+    
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function applyInlineFormatting(text) {
+      // **bold**
+      text = text.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+
+      // *italic* (avoid ** being treated as italics)
+      text = text.replace(/(^|[^*])\*(?!\*)(.+?)\*(?!\*)/g, "$1<em>$2</em>");
+
+      return text;
+    }
+
+    function renderInlineRichText(text) {
+      const escaped = escapeHtml(text);
+      const formatted = applyInlineFormatting(escaped);
+      return formatted.replace(/\n/g, "<br />");
+    }
+
+    function splitParagraphs(text) {
+      return text
+        .split(/\n\s*\n/)
+        .map((para) => para.trim())
+        .filter((para) => para.length > 0);
+    }
+
+    function renderQuoteBlockHtml(lines) {
+      const parts = [];
+      let paragraphLines = [];
+
+      function flushParagraph() {
+        const joined = paragraphLines.join("\n").trim();
+        paragraphLines = [];
+        if (!joined) return;
+        parts.push(`<p>${renderInlineRichText(joined)}</p>`);
+      }
+
+      lines.forEach((line) => {
+        const headingMatch = line.match(/^\s*#\s?(.*)$/);
+        if (headingMatch) {
+          flushParagraph();
+          const headingText = headingMatch[1].trim();
+          parts.push(`<h1>${renderInlineRichText(headingText)}</h1>`);
+          return;
+        }
+
+        if (!line.trim()) {
+          flushParagraph();
+          return;
+        }
+
+        paragraphLines.push(line);
+      });
+
+      flushParagraph();
+      return parts.join("");
+    }
+
+    function renderRichTextLiteHtml(raw) {
+      const s = String(raw ?? "");
+      if (!s.trim()) return "";
+
+      const normalized = s.replace(/\r\n/g, "\n");
+      const lines = normalized.split("\n");
+      const blocks = [];
+
+      let activeType = null;
+      let activeLines = [];
+      let inCodeFence = false;
+
+      function flushBlock() {
+        if (!activeType) return;
+        if (activeType !== "code" && activeLines.length === 0) return;
+        blocks.push({ type: activeType, lines: activeLines });
+        activeType = null;
+        activeLines = [];
+      }
+
+      lines.forEach((line) => {
+        const isFence = /^\s*```(?:\s*)$/.test(line);
+
+        if (inCodeFence) {
+          if (isFence) {
+            flushBlock();
+            inCodeFence = false;
+          } else {
+            if (activeType !== "code") {
+              activeType = "code";
+            }
+            activeLines.push(line);
+          }
+          return;
+        }
+
+        if (isFence) {
+          flushBlock();
+          activeType = "code";
+          activeLines = [];
+          inCodeFence = true;
+          return;
+        }
+
+        const quoteMatch = line.match(/^\s*>\s?(.*)$/);
+        const isQuote = quoteMatch !== null;
+
+        if (isQuote) {
+          if (activeType !== "quote") {
+            flushBlock();
+            activeType = "quote";
+          }
+          activeLines.push(quoteMatch[1]);
+          return;
+        }
+
+        if (activeType !== "text") {
+          flushBlock();
+          activeType = "text";
+        }
+        activeLines.push(line);
+      });
+      flushBlock();
+
+      return blocks
+        .map((block) => {
+          const joined = block.lines.join("\n");
+          const paragraphs = splitParagraphs(joined);
+
+          if (block.type === "quote") {
+            const quoteContent = renderQuoteBlockHtml(block.lines);
+            return `<blockquote class="rt-quote"><div class="rt-quote-inner">${quoteContent}</div></blockquote>`;
+          }
+
+          if (block.type === "code") {
+            const codeContent = escapeHtml(block.lines.join("\n"));
+            return `<pre class="rt-code-block"><code>${codeContent}</code></pre>`;
+          }
+
+          if (paragraphs.length === 0) return "";
+
+          return paragraphs
+            .map((para) => `<p>${renderInlineRichText(para)}</p>`)
+            .join("\n");
+        })
+        .filter(Boolean)
+        .join("\n");
+    }
+
+    function getUnlockedDateET(now) {
+      const formatter = new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/New_York",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
+
+      const parts = formatter.formatToParts(now);
+      const year = parts.find((p) => p.type === "year")?.value;
+      const month = parts.find((p) => p.type === "month")?.value;
+      const day = parts.find((p) => p.type === "day")?.value;
+
+      return `${year}-${month}-${day}`;
+    }
+
+    function formatPuzzleDate(dateStr) {
+      if (dateStr === "latest") return "Latest";
+      const [y, m, d] = String(dateStr)
+        .split("-")
+        .map((part) => Number(part));
+      const safe = new Date(Date.UTC(y, m - 1, d, 12, 0, 0));
+      return new Intl.DateTimeFormat("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+        timeZone: "America/New_York",
+      }).format(safe);
+    }
+
+    function formatPuzzleByline(number, dateStr) {
+      const numberPart =
+        typeof number === "number" && Number.isFinite(number) && number > 0
+          ? `#${number}`
+          : "#?";
+      return `${numberPart} · ${formatPuzzleDate(dateStr)}`;
+    }
+
+    function clear(el) {
+      while (el.firstChild) el.removeChild(el.firstChild);
+    }
+
+    function renderQA(container, data) {
+      clear(container);
+
+      const card = document.createElement("section");
+      card.className = "qa-card";
+
+      const q = document.createElement("h2");
+      q.className = "qa-question";
+      q.textContent = data.question || "Question";
+
+      const optionsWrap = document.createElement("div");
+      optionsWrap.className = "qa-options";
+      optionsWrap.setAttribute("role", "group");
+      optionsWrap.setAttribute("aria-label", "Answer options");
+
+      const feedback = document.createElement("div");
+      feedback.className = "qa-feedback";
+      feedback.setAttribute("aria-live", "polite");
+
+      const explanation = document.createElement("div");
+      explanation.className = "qa-explanation";
+      explanation.style.display = "none";
+
+      let answered = false;
+      const correctIndex = Number(data.answer) - 1;
+
+      const buttons = (data.options || []).map((optText, idx) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "qa-option";
+        btn.textContent = String(optText);
+
+        btn.addEventListener("click", () => {
+          if (answered) return;
+          answered = true;
+
+          const isCorrect = idx === correctIndex;
+
+          buttons.forEach((b, j) => {
+            b.disabled = true;
+            b.classList.add("is-locked");
+            if (j === correctIndex) b.classList.add("is-correct");
+            if (j === idx) b.classList.add("is-selected");
+            if (j === idx && !isCorrect) b.classList.add("is-wrong");
+          });
+
+          feedback.textContent = isCorrect ? "Correct!" : "Not quite.";
+
+          if (data.explanation && String(data.explanation).trim().length > 0) {
+            explanation.style.display = "";
+
+            clear(explanation);
+            const h = document.createElement("h3");
+            h.textContent = "Explanation";
+            explanation.appendChild(h);
+
+            const body = document.createElement("div");
+            body.className = "qa-explanation-body";
+            body.innerHTML = renderRichTextLiteHtml(data.explanation);
+            explanation.appendChild(body);
+          }
+        });
+
+        return btn;
+      });
+
+      optionsWrap.append(...buttons);
+      card.append(q, optionsWrap, feedback, explanation);
+      container.appendChild(card);
+    }
+
+    async function resolveLatestPuzzle(base) {
+      const res = await fetch(`${base}puzzles/manifest.json`, {
+        cache: "no-store",
+      });
+      if (!res.ok) throw new Error("Manifest not found");
+      const manifest = await res.json();
+
+      const unlockedDate = getUnlockedDateET(new Date());
+      const allPuzzles = (Array.isArray(manifest) ? manifest : [])
+        .filter((p) => p && typeof p.date === "string")
+        .sort((a, b) => a.date.localeCompare(b.date))
+        .map((p, idx) => ({ ...p, number: idx + 1 }));
+
+      const eligible = allPuzzles.filter((p) => p.date <= unlockedDate);
+      return eligible.length ? eligible[eligible.length - 1] : null;
+    }
+
+    async function loadPuzzleClient(date, base) {
+      let activeDate = date;
+      if (activeDate === "latest") {
+        try {
+          const resolved = await resolveLatestPuzzle(base);
+          if (!resolved || !resolved.date) {
+            const puzzleEl = document.getElementById(`puzzle-content-${date}`);
+            if (puzzleEl) {
+              puzzleEl.innerHTML =
+                "<p>No puzzles have been published yet.</p>";
+            }
+            return;
+          }
+          activeDate = resolved.date;
+
+          const titleEl = document.getElementById(`puzzle-title-${date}`);
+          if (titleEl) {
+            titleEl.textContent =
+              typeof resolved.title === "string" && resolved.title.trim().length
+                ? resolved.title
+                : `Puzzle for ${formatPuzzleDate(activeDate)}`;
+          }
+
+          const dateEl = document.getElementById(`puzzle-date-${date}`);
+          if (dateEl) {
+            dateEl.textContent = formatPuzzleByline(resolved.number, activeDate);
+          }
+        } catch (e) {
+          const puzzleEl = document.getElementById(`puzzle-content-${date}`);
+          if (puzzleEl) {
+            puzzleEl.innerHTML = "<p>Error loading puzzle.</p>";
+          }
+          console.error("Failed to load manifest:", e);
+          return;
+        }
+      }
+
+      const unlockedDate = getUnlockedDateET(new Date());
+      if (activeDate > unlockedDate) {
+        window.location.href = `${base}`;
+        return;
+      }
+
+      const puzzleEl = document.getElementById(`puzzle-content-${date}`);
+      const qaEl = document.getElementById(`qa-${date}`);
+      if (!puzzleEl || !qaEl) return;
+
+      try {
+        const res = await fetch(`${base}puzzles/${activeDate}.json`, {
+          cache: "no-store",
+        });
+        if (!res.ok) throw new Error("Puzzle not found");
+        const data = await res.json();
+
+        puzzleEl.innerHTML = renderRichTextLiteHtml(data.puzzle);
+        renderQA(qaEl, data);
+      } catch (e) {
+        puzzleEl.innerHTML = "<p>Error loading puzzle.</p>";
+        clear(qaEl);
+        console.error("Failed to load puzzle:", e);
+      }
+    }
+
+    // Execute
+    loadPuzzleClient(date, base);
+  })();</script> </section>  </main> <footer> <p>&copy; 2026 Kurumbu Games. All rights reserved.</p> </footer> </body></html>
