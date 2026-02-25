@@ -21,8 +21,7 @@ const deductoryBase = `${base}deductory/`;
 	<body>
 		<header>
 			<nav>
-				<a href={`${base}`}>Home</a>
-				<a href={deductoryBase}>Deductory</a>
+				<a href={deductoryBase}>Home</a>
 				<a href={`${deductoryBase}archive`}>Archive</a>
 			</nav>
 		</header>
@@ -30,7 +29,7 @@ const deductoryBase = `${base}deductory/`;
 			<slot />
 		</main>
 		<footer>
-			<p>&copy; 2026 Kurumbu Games. All rights reserved.</p>
+			<p>&copy; 2026 <a href={`${base}`}>Kurumbu Games</a></p>
 		</footer>
 	</body>
 </html>
