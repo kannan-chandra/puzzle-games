@@ -223,6 +223,7 @@ What this does:
 
 * Runs `npm run build`
 * Publishes `dist/` to the `gh-pages` branch via `gh-pages`
+* Forces `.nojekyll` so GitHub Pages serves Astro `/_astro/*` assets
 
 Astro config uses:
 

@@ -7,7 +7,7 @@
     "new-draft": "node scripts/new-draft.mjs",
     "dev": "node scripts/gen-puzzles.mjs --include-drafts && astro dev",
     "build": "npm run gen:puzzles && astro build",
-    "deploy": "npm run build && gh-pages -d dist",
+    "deploy": "npm run build && gh-pages -d dist --dotfiles --nojekyll",
     "test:integration": "node scripts/run-integration.mjs",
     "preview": "astro preview",
     "astro": "astro"
