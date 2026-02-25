@@ -17,7 +17,13 @@ const { showHeader = true } = Astro.props;
 			href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=IM+Fell+English:ital@0;1&family=JetBrains+Mono:wght@400;700&family=PT+Serif:wght@400;700&display=swap"
 			rel="stylesheet"
 		/>
-		
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-CZ1QSX1PF9"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-CZ1QSX1PF9');
+		</script>
 	</head>
 	<body>
 		{showHeader ? (
